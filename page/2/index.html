@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Feng Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="Feng Blog">
+<meta property="og:url" content="http://ysrfeng.github.io/page/2/index.html">
+<meta property="og:site_name" content="Feng Blog">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Feng Blog">
+  
+    <link rel="alternate" href="/atom.xml" title="Feng Blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Feng Blog</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">To be or not to be that is a question</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://ysrfeng.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-2015-10-30-android3" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2014/07/30/2015-10-30-android3/" class="article-date">
+  <time datetime="2014-07-30T00:15:10.000Z" itemprop="datePublished">2014-07-30</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Android/">Android</a>►<a class="article-category-link" href="/categories/Android/常用代码块/">常用代码块</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2014/07/30/2015-10-30-android3/">android常用代码3</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="欢迎来到风的博客"><a href="#欢迎来到风的博客" class="headerlink" title="欢迎来到风的博客"></a>欢迎来到风的博客</h1><p>-<strong>让AlertDialog在按钮被点击后不关闭</strong></p>
+<p>-<strong>闪光灯的开启和关闭</strong></p>
+<p>-<strong>让EditText失去焦点而不弹出软键盘</strong></p>
+<p>-<strong>强制EditText不弹出软键盘</strong></p>
+<hr>
+<p>###让AlertDialog在按钮被点击后不关闭<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">/* *</div><div class="line">* * 设定使用AlertDialog时，当点击其中的按钮时，是否自动退出AlertDialog，disableOrEnable为true时退出，false时不退出</div><div class="line">* */</div><div class="line">private void disableOrEnableBtnCloseOnAlertDialog(DialogInterface dialog, boolean disableOrEnable)&#123;</div><div class="line">    	try &#123;</div><div class="line">		Field field = dialog.getClass().getSuperclass().getDeclaredField(&quot;mShowing&quot;);</div><div class="line">		field.setAccessible(true);</div><div class="line">		field.set(dialog, disableOrEnable);</div><div class="line">	&#125; catch (Exception e) &#123;</div><div class="line">		e.printStackTrace();</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>###闪光灯的开启和关闭<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line">&lt;!-- 打开Camera的权限 --&gt;</div><div class="line">&lt;uses-permission android:name=&quot;android.permission.CAMERA&quot; /&gt;</div><div class="line">&lt;uses-feature android:name=&quot;android.hardware.camera&quot; /&gt;</div><div class="line">&lt;uses-feature android:name=&quot;android.hardware.autofocus&quot; /&gt;</div><div class="line">&lt;!-- 开启闪光灯权限 --&gt;</div><div class="line">&lt;uses-permission android:name=&quot;android.permission.FLASHLIGHT&quot; /&gt;</div><div class="line"></div><div class="line">private static Camera camera = null;</div><div class="line">private static Parameters parameters_light = null; </div><div class="line"></div><div class="line">public static void turnOnLight() &#123;</div><div class="line">	if(null == camera)&#123;</div><div class="line">		camera = Camera.open();</div><div class="line">		parameters_light = camera.getParameters();</div><div class="line">		parameters_light.setFlashMode(Parameters.FLASH_MODE_TORCH);// 开启闪光灯</div><div class="line">		camera.setParameters(parameters_light);</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line">public static void turnOffLight() &#123;</div><div class="line">	if(null != camera)&#123;</div><div class="line">		parameters_light.setFlashMode(Parameters.FLASH_MODE_OFF);// 关闭闪光灯</div><div class="line">		camera.setParameters(parameters_light);</div><div class="line">		camera.release();</div><div class="line">		camera = null;</div><div class="line">	&#125;  </div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>###让EditText失去焦点而不弹出软键盘</p>
+<p>######只需要让其他的控件获取焦点即可：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">mTv_title.setFocusable(true);</div><div class="line">mTv_title.setFocusableInTouchMode(true);</div></pre></td></tr></table></figure></p>
+<p>###强制EditText不弹出软键盘<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mEt.setInputType(InputType.TYPE_NULL);</div></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://ysrfeng.github.io/2014/07/30/2015-10-30-android3/" data-id="cj0w28arg0003fzcn43y4otnq" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-2015-10-29-android2" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2014/07/29/2015-10-29-android2/" class="article-date">
+  <time datetime="2014-07-29T01:00:24.000Z" itemprop="datePublished">2014-07-29</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Android/">Android</a>►<a class="article-category-link" href="/categories/Android/常用代码块/">常用代码块</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2014/07/29/2015-10-29-android2/">android常用代码2</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="欢迎来到风的博客"><a href="#欢迎来到风的博客" class="headerlink" title="欢迎来到风的博客"></a>欢迎来到风的博客</h1><p>-<strong>获取控件在屏幕中的位置</strong></p>
+<p>-<strong>捕获按键事件</strong></p>
+<p>-<strong>振动效果</strong></p>
+<p>-<strong>监听Activity加载完毕</strong></p>
+<p>###获取控件在屏幕中的位置<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">int[] locations = new int[2];  </div><div class="line">view.getLocationOnScreen(locations);  </div><div class="line">int x = locations[0];//获取组件当前位置的横坐标  </div><div class="line">int y = locations[1];//获取组件当前位置的纵坐标</div></pre></td></tr></table></figure></p>
+<p>###捕获按键事件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">@Override</div><div class="line">public boolean onKeyDown(int keyCode, KeyEvent event) &#123;  </div><div class="line"></div><div class="line">       if(keyCode==KeyEvent.KEYCODE_BACK)&#123;</div><div class="line">       &#125;  </div><div class="line"></div><div class="line">       return super.onKeyDown(keyCode, event);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>###振动效果</p>
+<p>#####首先就要得到使用权限，在menifest.xml里面声明一下就可以了<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;uses-permission android:name=&quot;android.permission.VIBRATE&quot;/&gt;</div></pre></td></tr></table></figure></p>
+<p>#####然后就可以在程序里面使用 振动了，下面可以得到振动效果的类<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Vibrator vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);</div></pre></td></tr></table></figure></p>
+<p>#####最后就是控制振动时间<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">vibrator.vibrate(100);</div></pre></td></tr></table></figure></p>
+<p>#####在需要的地方做上面的操作就可以完成振动的效果了。</p>
+<p>###监听Activity加载完毕</p>
+<p>#####这个onWindowFocusChanged指的是这个Activity得到或者失去焦点的时候 就会call.</p>
+<p>#####也就是说 如果你想要做一个Activity一加载完毕，就触发什么的话 完全可以用这个！！<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">@Override  </div><div class="line">public void onWindowFocusChanged(boolean hasFocus) &#123;  </div><div class="line">    // TODO Auto-generated method stub  </div><div class="line">    super.onWindowFocusChanged(hasFocus);  </div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://ysrfeng.github.io/2014/07/29/2015-10-29-android2/" data-id="cj0w28ar80001fzcnzeibqc96" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-2015-10-29-android1" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2014/06/15/2015-10-29-android1/" class="article-date">
+  <time datetime="2014-06-15T00:22:24.000Z" itemprop="datePublished">2014-06-15</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Android/">Android</a>►<a class="article-category-link" href="/categories/Android/常用代码块/">常用代码块</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2014/06/15/2015-10-29-android1/">android常用代码1</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="欢迎来到风的博客"><a href="#欢迎来到风的博客" class="headerlink" title="欢迎来到风的博客"></a>欢迎来到风的博客</h1><p>-<strong>Activity跳转代码模板</strong></p>
+<p>-<strong>Toast使用</strong></p>
+<p>-<strong>获取当前系统时间</strong></p>
+<p>-<strong>获取屏幕宽度和高度</strong></p>
+<p>###Activity跳转代码模板<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line">Intent intent = new Intent(A.this, B.class);</div><div class="line">Bundle bundle = new Bundle();</div><div class="line">bundle.putString(&quot;key&quot;, &quot;value&quot;);</div><div class="line">bundle.putInt(&quot;key&quot;, 0);</div><div class="line">intent.putExtras(bundle);</div><div class="line">startActivity(intent);</div><div class="line"></div><div class="line">-------------------------------------------------------------------------------</div><div class="line">startActivityForResult(intent, requestCode);</div><div class="line"></div><div class="line">@Override</div><div class="line">protected void onActivityResult(int requestCode, int resultCode, Intent data) &#123;</div><div class="line">	if (resultCode == RESULT_OK) &#123;		</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">--------------------------------------------------------------------------------</div><div class="line">返回传递参数：</div><div class="line">Intent intent = new Intent();</div><div class="line">Bundle bundle = new Bundle();</div><div class="line">bundle.putString(&quot;key&quot;, &quot;value&quot;);</div><div class="line">bundle.putInt(&quot;key&quot;, 0);</div><div class="line">intent.putExtras(bundle);</div><div class="line">setResult(RESULT_OK, intent);</div><div class="line">finish();</div><div class="line"></div><div class="line">返回不传递参数：</div><div class="line">setResult(RESULT_OK);</div><div class="line">finish();</div></pre></td></tr></table></figure></p>
+<p>###Toast使用<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">Toast.makeText(getApplicationContext(), &quot;默认Toast样式&quot;, Toast.LENGTH_SHORT).show();</div><div class="line"></div><div class="line">private void makeTip(String info) &#123;</div><div class="line">	Toast toast = Toast.makeText(getApplicationContext(), info, Toast.LENGTH_SHORT);</div><div class="line">	toast.setGravity(Gravity.CENTER, 0, 0);</div><div class="line">	toast.show();</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>###获取当前系统时间<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">//12小时制</div><div class="line">SimpleDateFormat sdf = new SimpleDateFormat(&quot;yyyy-MM-dd hh:mm:ss&quot;);</div><div class="line">String date = sdf.format(new java.util.Date());</div><div class="line"></div><div class="line"></div><div class="line">//24小时制</div><div class="line">SimpleDateFormat sdf = new SimpleDateFormat(&quot;yyyy-MM-dd HH:mm:ss&quot;);</div><div class="line">String date = sdf.format(new java.util.Date());</div></pre></td></tr></table></figure></p>
+<p>###获取屏幕宽度和高度<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">public static int displayWidth;  //屏幕宽度</div><div class="line">public static int displayHeight; //屏幕高度</div><div class="line"></div><div class="line">DisplayMetrics displayMetrics = new DisplayMetrics();</div><div class="line">getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);</div><div class="line">displayWidth = displayMetrics.widthPixels;</div><div class="line">displayHeight = displayMetrics.heightPixels;</div></pre></td></tr></table></figure></p>
+<p>#####但是，需要注意的是，在一个低密度的小屏手机上，仅靠上面的代码是不能获取正确的尺寸的。比如说，一部240x320像素的低密度手机，如果运行上述代码，获取到的屏幕尺寸是320x427。因此，研究之后发现，若没有设定多分辨率支持的话，Android系统会将240x320的低密度（120）尺寸转换为中等密度（160）对应的尺寸，这样的话就大大影响了程序的编码。所以，需要在工程的AndroidManifest.xml文件中，加入supports-screens节点，具体的内容如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;supports-screens</div><div class="line">	android:smallScreens=&quot;true&quot;</div><div class="line">	android:normalScreens=&quot;true&quot;</div><div class="line">	android:largeScreens=&quot;true&quot;</div><div class="line">	android:resizeable=&quot;true&quot;</div><div class="line">	android:anyDensity=&quot;true&quot; /&gt;</div></pre></td></tr></table></figure></p>
+<p>#####这样的话，当前的Android程序就支持了多种分辨率，那么就可以得到正确的物理尺寸了。<br>-原文引自[<a href="http://www.67bar.com/archives/1971" target="_blank" rel="external">http://www.67bar.com/archives/1971</a>]</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://ysrfeng.github.io/2014/06/15/2015-10-29-android1/" data-id="cj0w28ar20000fzcn09szvnmq" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+
+
+  <nav id="page-nav">
+    <a class="extend prev" rel="prev" href="/">&laquo; __('prev')</a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
+  </nav>
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Android/">Android</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Android/HttpClient/">HttpClient</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Android/setOnTouchListener/">setOnTouchListener</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Android/zxing/">zxing</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Android/zxing/二维码/">二维码</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Android/常用代码块/">常用代码块</a></li></ul></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">八月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/">七月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">六月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/05/">五月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">三月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/08/">八月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/07/">七月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/06/">六月 2014</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2015/08/05/2015-10-31-android11/">Android网络传输中必用的两个加密算法</a>
+          </li>
+        
+          <li>
+            <a href="/2015/07/15/2015-11-04-android13/">实现扫描二维码和生成带logo的二维码</a>
+          </li>
+        
+          <li>
+            <a href="/2015/06/23/2015-10-31-android12/">Android中Socket通信</a>
+          </li>
+        
+          <li>
+            <a href="/2015/06/15/2015-10-30-android9/">实现左右点击图片预览</a>
+          </li>
+        
+          <li>
+            <a href="/2015/06/02/2015-10-30-android8/">判断sdCard是否挂载</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017 YangShirong<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

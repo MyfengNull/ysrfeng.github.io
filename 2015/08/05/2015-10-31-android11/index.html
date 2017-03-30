@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Android网络传输中必用的两个加密算法 | Feng Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="#欢迎来到风的博客
+###MD5 和 RSAMD5和RSA是网络传输中最常用的两个算法，了解这两个算法原理后就能大致知道加密是怎么一回事了。但这两种算法使用环境有差异，刚好互补
+
+MD5加密######首先MD5是不可逆的，只能加密而不能解密。比如明文是yanzi1225627,得到MD5加密后的字符串是:14F2AE15259E2C276A095E7394DA0CA9  但不能由后面一大串倒推出">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android网络传输中必用的两个加密算法">
+<meta property="og:url" content="http://ysrfeng.github.io/2015/08/05/2015-10-31-android11/index.html">
+<meta property="og:site_name" content="Feng Blog">
+<meta property="og:description" content="#欢迎来到风的博客
+###MD5 和 RSAMD5和RSA是网络传输中最常用的两个算法，了解这两个算法原理后就能大致知道加密是怎么一回事了。但这两种算法使用环境有差异，刚好互补
+
+MD5加密######首先MD5是不可逆的，只能加密而不能解密。比如明文是yanzi1225627,得到MD5加密后的字符串是:14F2AE15259E2C276A095E7394DA0CA9  但不能由后面一大串倒推出">
+<meta property="og:updated_time" content="2016-08-25T20:59:22.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Android网络传输中必用的两个加密算法">
+<meta name="twitter:description" content="#欢迎来到风的博客
+###MD5 和 RSAMD5和RSA是网络传输中最常用的两个算法，了解这两个算法原理后就能大致知道加密是怎么一回事了。但这两种算法使用环境有差异，刚好互补
+
+MD5加密######首先MD5是不可逆的，只能加密而不能解密。比如明文是yanzi1225627,得到MD5加密后的字符串是:14F2AE15259E2C276A095E7394DA0CA9  但不能由后面一大串倒推出">
+  
+    <link rel="alternate" href="/atom.xml" title="Feng Blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Feng Blog</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">To be or not to be that is a question</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://ysrfeng.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-2015-10-31-android11" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/08/05/2015-10-31-android11/" class="article-date">
+  <time datetime="2015-08-05T01:57:32.000Z" itemprop="datePublished">2015-08-05</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Android网络传输中必用的两个加密算法
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>#欢迎来到风的博客</p>
+<p>###MD5 和 RSA<br>MD5和RSA是网络传输中最常用的两个算法，了解这两个算法原理后就能大致知道加密是怎么一回事了。但这两种算法使用环境有差异，刚好互补</p>
+<hr>
+<h2 id="MD5加密"><a href="#MD5加密" class="headerlink" title="MD5加密"></a>MD5加密</h2><p>######首先MD5是不可逆的，只能加密而不能解密。比如明文是yanzi1225627,得到MD5加密后的字符串是:14F2AE15259E2C276A095E7394DA0CA9  但不能由后面一大串倒推出yanzi1225627.因此可以用来存储用户输入的密码在服务器上。现在下载文件校验文件是否中途被篡改也是用的它，原理参见：<a href="http://blog.csdn.net/forgotaboutgirl/article/details/7258109" target="_blank" rel="external">http://blog.csdn.net/forgotaboutgirl/article/details/7258109</a> 无论在Android上还是pc上用java实现MD5都比较容易，因为java已经把它做到了java.security.MessageDigest里。下面是一个MD5Util.java类：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line">package org.md5.util;</div><div class="line">import java.security.MessageDigest;</div><div class="line">public class MD5Util &#123;</div><div class="line">	public final static String getMD5String(String s) &#123;</div><div class="line">		char hexDigits[] = &#123; &apos;0&apos;, &apos;1&apos;, &apos;2&apos;, &apos;3&apos;, &apos;4&apos;,</div><div class="line">				&apos;5&apos;, &apos;6&apos;, &apos;7&apos;, &apos;8&apos;, &apos;9&apos;,</div><div class="line">				&apos;A&apos;, &apos;B&apos;, &apos;C&apos;, &apos;D&apos;, &apos;E&apos;, &apos;F&apos; &#125;;</div><div class="line">		try &#123;</div><div class="line">			byte[] btInput = s.getBytes();</div><div class="line">			//获得MD5摘要算法的 MessageDigest 对象</div><div class="line">			MessageDigest mdInst = MessageDigest.getInstance(&quot;MD5&quot;);</div><div class="line">			//使用指定的字节更新摘要</div><div class="line">			mdInst.update(btInput);</div><div class="line">			//获得密文</div><div class="line">			byte[] md = mdInst.digest();</div><div class="line">			//把密文转换成十六进制的字符串形式</div><div class="line">			int j = md.length;</div><div class="line">			char str[] = new char[j * 2];</div><div class="line">			int k = 0;</div><div class="line">			for (int i = 0; i &lt; j; i++) &#123;</div><div class="line">				byte byte0 = md[i];</div><div class="line">				str[k++] = hexDigits[byte0 &gt;&gt;&gt; 4 &amp; 0xf];</div><div class="line">				str[k++] = hexDigits[byte0 &amp; 0xf];</div><div class="line">			&#125;</div><div class="line">			return new String(str);</div><div class="line">		&#125;</div><div class="line">		catch (Exception e) &#123;</div><div class="line">			e.printStackTrace();</div><div class="line">			return null;</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>通过下面两行代码调用:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">//MD5加密测试</div><div class="line">		String srcString = &quot;yanzi1225627&quot;;</div><div class="line">		System.out.println(&quot;MD5加密后 = &quot; + MD5Util.getMD5String(srcString));</div></pre></td></tr></table></figure></p>
+<p>##RSA 加密<br>RSA是可逆的，一个字符串可以经rsa加密后，经加密后的字符串传到对端如服务器上，再进行解密即可。前提是服务器知道解密的私钥，当然这个私钥最好不要再网络传输。<br><strong>RSA算法描述中需要以下几个变量:</strong></p>
+<ul>
+<li><strong>1:</strong>p和q 是不相等的，足够大的两个质数。 p和q是保密的</li>
+<li><strong>2:</strong>n = p*q n是公开的</li>
+<li><strong>3:</strong>f(n) = (p-1)*(q-1)</li>
+<li><strong>4:</strong>e 是和f(n)互质的质数</li>
+<li><strong>5:</strong>计算参数d </li>
+<li><strong>6:</strong>经过上面5步计算得到公钥KU=(e,n) 私钥KR=(d,n)<br>下面两篇文章对此有清晰的描述:<br><a href="http://wenku.baidu.com/view/e53fbe36a32d7375a417801b.html" target="_blank" rel="external">http://wenku.baidu.com/view/e53fbe36a32d7375a417801b.html</a><br><a href="http://bank.hexun.com/2009-06-24/118958531.html" target="_blank" rel="external">http://bank.hexun.com/2009-06-24/118958531.html</a><br>####下面是java实现RSAUtil.java类:<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div><div class="line">129</div><div class="line">130</div><div class="line">131</div><div class="line">132</div><div class="line">133</div><div class="line">134</div><div class="line">135</div><div class="line">136</div><div class="line">137</div><div class="line">138</div><div class="line">139</div><div class="line">140</div><div class="line">141</div><div class="line">142</div><div class="line">143</div><div class="line">144</div><div class="line">145</div><div class="line">146</div><div class="line">147</div><div class="line">148</div><div class="line">149</div><div class="line">150</div><div class="line">151</div><div class="line">152</div><div class="line">153</div><div class="line">154</div><div class="line">155</div><div class="line">156</div><div class="line">157</div><div class="line">158</div><div class="line">159</div><div class="line">160</div><div class="line">161</div><div class="line">162</div><div class="line">163</div><div class="line">164</div><div class="line">165</div><div class="line">166</div><div class="line">167</div><div class="line">168</div><div class="line">169</div><div class="line">170</div><div class="line">171</div><div class="line">172</div><div class="line">173</div><div class="line">174</div><div class="line">175</div><div class="line">176</div><div class="line">177</div><div class="line">178</div><div class="line">179</div><div class="line">180</div><div class="line">181</div><div class="line">182</div><div class="line">183</div><div class="line">184</div><div class="line">185</div><div class="line">186</div><div class="line">187</div><div class="line">188</div><div class="line">189</div><div class="line">190</div><div class="line">191</div><div class="line">192</div><div class="line">193</div><div class="line">194</div><div class="line">195</div><div class="line">196</div><div class="line">197</div><div class="line">198</div><div class="line">199</div><div class="line">200</div><div class="line">201</div><div class="line">202</div><div class="line">203</div><div class="line">204</div></pre></td><td class="code"><pre><div class="line">import javax.crypto.Cipher;</div><div class="line">import java.security.*;</div><div class="line">import java.security.spec.RSAPublicKeySpec;</div><div class="line">import java.security.spec.RSAPrivateKeySpec;</div><div class="line">import java.security.spec.InvalidKeySpecException;</div><div class="line">import java.security.interfaces.RSAPrivateKey;</div><div class="line">import java.security.interfaces.RSAPublicKey;</div><div class="line">import java.io.*;</div><div class="line">import java.math.BigInteger;</div><div class="line"></div><div class="line">/**</div><div class="line"> * RSA 工具类。提供加密，解密，生成密钥对等方法。</div><div class="line"> * 需要到http://www.bouncycastle.org下载bcprov-jdk14-123.jar。</div><div class="line"> * RSA加密原理概述  </div><div class="line"> * RSA的安全性依赖于大数的分解，公钥和私钥都是两个大素数（大于100的十进制位）的函数。  </div><div class="line"> * 据猜测，从一个密钥和密文推断出明文的难度等同于分解两个大素数的积  </div><div class="line"> * ===================================================================  </div><div class="line"> * （该算法的安全性未得到理论的证明）  </div><div class="line"> * ===================================================================  </div><div class="line"> * 密钥的产生：  </div><div class="line"> * 1.选择两个大素数 p,q ,计算 n=p*q;  </div><div class="line"> * 2.随机选择加密密钥 e ,要求 e 和 (p-1)*(q-1)互质  </div><div class="line"> * 3.利用 Euclid 算法计算解密密钥 d , 使其满足 e*d = 1(mod(p-1)*(q-1)) (其中 n,d 也要互质)  </div><div class="line"> * 4:至此得出公钥为 (n,e) 私钥为 (n,d)  </div><div class="line"> * ===========================================================</div><div class="line"> * 加解密方法：  </div><div class="line"> * 1.首先将要加密的信息 m(二进制表示) 分成等长的数据块 m1,m2,...,mi 块长 s(尽可能大) ,其中 2^s&lt;n  </div><div class="line"> * 2:对应的密文是： ci = mi^e(mod n)  </div><div class="line"> * 3:解密时作如下计算： mi = ci^d(mod n)  </div><div class="line"> * ===========================================================</div><div class="line"> * RSA速度  </div><div class="line"> * 由于进行的都是大数计算，使得RSA最快的情况也比DES慢上100倍，无论 是软件还是硬件实现。  </div><div class="line"> * 速度一直是RSA的缺陷。一般来说只用于少量数据 加密。 </div><div class="line"> *文件名：RSAUtil.java&lt;br&gt;</div><div class="line"> *@author 董利伟&lt;br&gt;</div><div class="line"> *版本:&lt;br&gt;</div><div class="line"> *描述：&lt;br&gt;</div><div class="line"> *创建时间:2008-9-23 下午09:58:16&lt;br&gt;</div><div class="line"> *文件描述：&lt;br&gt;</div><div class="line"> *修改者：&lt;br&gt;</div><div class="line"> *修改日期：&lt;br&gt;</div><div class="line"> *修改描述：&lt;br&gt;</div><div class="line"> */</div><div class="line">public class RSAUtil &#123;</div><div class="line">	//密钥对</div><div class="line">	private KeyPair keyPair = null;</div><div class="line">	/**</div><div class="line">	 * 初始化密钥对</div><div class="line">	 */</div><div class="line">	public RSAUtil()&#123;</div><div class="line">		try &#123;</div><div class="line">			this.keyPair = this.generateKeyPair();</div><div class="line">		&#125; catch (Exception e) &#123;</div><div class="line">			e.printStackTrace();</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">	/**</div><div class="line">	* 生成密钥对</div><div class="line">	* @return KeyPair</div><div class="line">	* @throws Exception</div><div class="line">	*/</div><div class="line">	private KeyPair generateKeyPair() throws Exception &#123;</div><div class="line">		try &#123;</div><div class="line">			KeyPairGenerator keyPairGen = KeyPairGenerator.getInstance(&quot;RSA&quot;,new org.bouncycastle.jce.provider.BouncyCastleProvider());</div><div class="line">			//这个值关系到块加密的大小，可以更改，但是不要太大，否则效率会低</div><div class="line">			final int KEY_SIZE = 1024;</div><div class="line">			keyPairGen.initialize(KEY_SIZE, new SecureRandom());</div><div class="line">			KeyPair keyPair = keyPairGen.genKeyPair();</div><div class="line">			return keyPair;</div><div class="line">		&#125; catch (Exception e) &#123;</div><div class="line">			throw new Exception(e.getMessage());</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">	/**</div><div class="line">	* 生成公钥</div><div class="line">	* @param modulus</div><div class="line">	* @param publicExponent</div><div class="line">	* @return RSAPublicKey</div><div class="line">	* @throws Exception</div><div class="line">	*/</div><div class="line">	private RSAPublicKey generateRSAPublicKey(byte[] modulus, byte[] publicExponent) throws Exception &#123;</div><div class="line">		KeyFactory keyFac = null;</div><div class="line">		try &#123;</div><div class="line">			keyFac = KeyFactory.getInstance(&quot;RSA&quot;, new org.bouncycastle.jce.provider.BouncyCastleProvider());</div><div class="line">		&#125; catch (NoSuchAlgorithmException ex) &#123;</div><div class="line">		throw new Exception(ex.getMessage());</div><div class="line">		&#125;</div><div class="line">		RSAPublicKeySpec pubKeySpec = new RSAPublicKeySpec(new BigInteger(modulus), new BigInteger(publicExponent));</div><div class="line">		try &#123;</div><div class="line">			return (RSAPublicKey) keyFac.generatePublic(pubKeySpec);</div><div class="line">		&#125; catch (InvalidKeySpecException ex) &#123;</div><div class="line">			throw new Exception(ex.getMessage());</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">	/**</div><div class="line">	* 生成私钥</div><div class="line">	* @param modulus</div><div class="line">	* @param privateExponent</div><div class="line">	* @return RSAPrivateKey</div><div class="line">	* @throws Exception</div><div class="line">	*/</div><div class="line">	private RSAPrivateKey generateRSAPrivateKey(byte[] modulus, byte[] privateExponent) throws Exception &#123;</div><div class="line">		KeyFactory keyFac = null;</div><div class="line">		try &#123;</div><div class="line">			keyFac = KeyFactory.getInstance(&quot;RSA&quot;, new org.bouncycastle.jce.provider.BouncyCastleProvider());</div><div class="line">		&#125; catch (NoSuchAlgorithmException ex) &#123;</div><div class="line">			throw new Exception(ex.getMessage());</div><div class="line">		&#125;</div><div class="line">		RSAPrivateKeySpec priKeySpec = new RSAPrivateKeySpec(new BigInteger(modulus), new BigInteger(privateExponent));</div><div class="line">		try &#123;</div><div class="line">			return (RSAPrivateKey) keyFac.generatePrivate(priKeySpec);</div><div class="line">		&#125; catch (InvalidKeySpecException ex) &#123;</div><div class="line">			throw new Exception(ex.getMessage());</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">	/**</div><div class="line">	* 加密</div><div class="line">	* @param key 加密的密钥</div><div class="line">	* @param data 待加密的明文数据</div><div class="line">	* @return 加密后的数据</div><div class="line">	* @throws Exception</div><div class="line">	*/</div><div class="line">	public byte[] encrypt(Key key, byte[] data) throws Exception &#123;</div><div class="line">		try &#123;</div><div class="line">			Cipher cipher = Cipher.getInstance(&quot;RSA&quot;, new org.bouncycastle.jce.provider.BouncyCastleProvider());</div><div class="line">			cipher.init(Cipher.ENCRYPT_MODE, key);</div><div class="line">			//获得加密块大小，如:加密前数据为128个byte，而key_size=1024 加密块大小为127 byte,加密后为128个byte;</div><div class="line">			//因此共有2个加密块，第一个127 byte第二个为1个byte</div><div class="line">			int blockSize = cipher.getBlockSize();</div><div class="line">			int outputSize = cipher.getOutputSize(data.length);//获得加密块加密后块大小</div><div class="line">			int leavedSize = data.length % blockSize;</div><div class="line">			int blocksSize = leavedSize != 0 ? data.length / blockSize + 1 : data.length / blockSize;</div><div class="line">			byte[] raw = new byte[outputSize * blocksSize];</div><div class="line">			int i = 0;</div><div class="line">			while (data.length - i * blockSize &gt; 0) &#123;</div><div class="line">				if (data.length - i * blockSize &gt; blockSize)</div><div class="line">				cipher.doFinal(data, i * blockSize, blockSize, raw, i * outputSize);</div><div class="line">				else</div><div class="line">				cipher.doFinal(data, i * blockSize, data.length - i * blockSize, raw, i * outputSize);</div><div class="line">				//这里面doUpdate方法不可用，查看源代码后发现每次doUpdate后并没有什么实际动作除了把byte[]放到ByteArrayOutputStream中</div><div class="line">				//，而最后doFinal的时候才将所有的byte[]进行加密，可是到了此时加密块大小很可能已经超出了OutputSize所以只好用dofinal方法。</div><div class="line">				i++;</div><div class="line">			&#125;</div><div class="line">			return raw;</div><div class="line">		&#125; catch (Exception e) &#123;</div><div class="line">		throw new Exception(e.getMessage());</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">	/**</div><div class="line">	* 解密</div><div class="line">	* @param key 解密的密钥</div><div class="line">	* @param raw 已经加密的数据</div><div class="line">	* @return 解密后的明文</div><div class="line">	* @throws Exception</div><div class="line">	*/</div><div class="line">	public byte[] decrypt(Key key, byte[] raw) throws Exception &#123;</div><div class="line">		try &#123;</div><div class="line">			Cipher cipher = Cipher.getInstance(&quot;RSA&quot;, new org.bouncycastle.jce.provider.BouncyCastleProvider());</div><div class="line">			cipher.init(cipher.DECRYPT_MODE, key);</div><div class="line">			int blockSize = cipher.getBlockSize();</div><div class="line">			ByteArrayOutputStream bout = new ByteArrayOutputStream(64);</div><div class="line">			int j = 0;</div><div class="line">			while (raw.length - j * blockSize &gt; 0) &#123;</div><div class="line">				bout.write(cipher.doFinal(raw, j * blockSize, blockSize));</div><div class="line">				j++;</div><div class="line">			&#125;</div><div class="line">			return bout.toByteArray();</div><div class="line">		&#125; catch (Exception e) &#123;</div><div class="line">			throw new Exception(e.getMessage());</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">	/**</div><div class="line">	 * 返回公钥</div><div class="line">	 * @return</div><div class="line">	 * @throws Exception </div><div class="line">	 */</div><div class="line">	public RSAPublicKey getRSAPublicKey() throws Exception&#123;</div><div class="line">		//获取公钥</div><div class="line">		RSAPublicKey pubKey = (RSAPublicKey) keyPair.getPublic();</div><div class="line">		//获取公钥系数(字节数组形式)</div><div class="line">		byte[] pubModBytes = pubKey.getModulus().toByteArray();</div><div class="line">		//返回公钥公用指数(字节数组形式)</div><div class="line">		byte[] pubPubExpBytes = pubKey.getPublicExponent().toByteArray();</div><div class="line">		//生成公钥</div><div class="line">		RSAPublicKey recoveryPubKey = this.generateRSAPublicKey(pubModBytes,pubPubExpBytes);</div><div class="line">		return recoveryPubKey;</div><div class="line">	&#125;</div><div class="line">	/**</div><div class="line">	 * 获取私钥</div><div class="line">	 * @return</div><div class="line">	 * @throws Exception </div><div class="line">	 */</div><div class="line">	public RSAPrivateKey getRSAPrivateKey() throws Exception&#123;</div><div class="line">		//获取私钥</div><div class="line">		RSAPrivateKey priKey = (RSAPrivateKey) keyPair.getPrivate();</div><div class="line">		//返回私钥系数(字节数组形式)</div><div class="line">		byte[] priModBytes = priKey.getModulus().toByteArray();</div><div class="line">		//返回私钥专用指数(字节数组形式)</div><div class="line">		byte[] priPriExpBytes = priKey.getPrivateExponent().toByteArray();</div><div class="line">		//生成私钥</div><div class="line">		RSAPrivateKey recoveryPriKey = this.generateRSAPrivateKey(priModBytes,priPriExpBytes);</div><div class="line">		return recoveryPriKey;</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>测试代码:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">try &#123;</div><div class="line">	RSAUtil rsa = new RSAUtil();</div><div class="line">	String str = &quot;yanzi1225627&quot;;</div><div class="line">	RSAPublicKey pubKey = rsa.getRSAPublicKey();</div><div class="line">	RSAPrivateKey priKey = rsa.getRSAPrivateKey();</div><div class="line">	byte[] enRsaBytes = rsa.encrypt(pubKey,str.getBytes());</div><div class="line">	String enRsaStr = new String(enRsaBytes, &quot;UTF-8&quot;);</div><div class="line">	System.out.println(&quot;加密后==&quot; + enRsaStr);</div><div class="line">	System.out.println(&quot;解密后==&quot; + new String(rsa.decrypt(priKey, rsa.encrypt(pubKey,str.getBytes()))));</div><div class="line">&#125; catch (Exception e) &#123;</div><div class="line">	// TODO Auto-generated catch block</div><div class="line">	e.printStackTrace();</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>下面是执行结果:<br>加密后==s?ko?1@lo????BJ?iE???1Ux?Kx&amp;??=??nO?    ?l?&gt;?????2r?y??8v-    \A??`????r?t3?-3y?hjL?M??Se?Z???????~?”??e??XZ?苜?<br>解密后==yanzi1225627<br>上面代码需要用到一个包rsa.jar,下载链接及上面的测试代码我已打包，下载链接见下：<br><a href="http://download.csdn.net/detail/yanzi1225627/7382263" target="_blank" rel="external">http://download.csdn.net/detail/yanzi1225627/7382263</a></p>
+<blockquote>
+<p>原文引自<a href="http://blog.csdn.net/yanzi1225627/article/details/26508035" target="_blank" rel="external">http://blog.csdn.net/yanzi1225627/article/details/26508035</a></p>
+</blockquote>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://ysrfeng.github.io/2015/08/05/2015-10-31-android11/" data-id="cj0w28as2000ffzcnhszbjnzg" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2015/07/15/2015-11-04-android13/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">实现扫描二维码和生成带logo的二维码</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Android/">Android</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Android/HttpClient/">HttpClient</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Android/setOnTouchListener/">setOnTouchListener</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Android/zxing/">zxing</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Android/zxing/二维码/">二维码</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Android/常用代码块/">常用代码块</a></li></ul></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">八月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/">七月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">六月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/05/">五月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">三月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/08/">八月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/07/">七月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/06/">六月 2014</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2015/08/05/2015-10-31-android11/">Android网络传输中必用的两个加密算法</a>
+          </li>
+        
+          <li>
+            <a href="/2015/07/15/2015-11-04-android13/">实现扫描二维码和生成带logo的二维码</a>
+          </li>
+        
+          <li>
+            <a href="/2015/06/23/2015-10-31-android12/">Android中Socket通信</a>
+          </li>
+        
+          <li>
+            <a href="/2015/06/15/2015-10-30-android9/">实现左右点击图片预览</a>
+          </li>
+        
+          <li>
+            <a href="/2015/06/02/2015-10-30-android8/">判断sdCard是否挂载</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017 YangShirong<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

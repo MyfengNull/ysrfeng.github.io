@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Android常用代码4 | Feng Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="欢迎来到风的博客-设置全屏的方法
+-添加自定义控件属性
+###设置全屏的方法在java代码中设置，需要将代码放在setContentView()之前1234//set no title barrequestWindowFeature(Window.FEATURE_NO_TITLE);//set to full screengetWindow().setFlags(WindowManager.Lay">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android常用代码4">
+<meta property="og:url" content="http://ysrfeng.github.io/2015/03/15/2015-10-30-android4/index.html">
+<meta property="og:site_name" content="Feng Blog">
+<meta property="og:description" content="欢迎来到风的博客-设置全屏的方法
+-添加自定义控件属性
+###设置全屏的方法在java代码中设置，需要将代码放在setContentView()之前1234//set no title barrequestWindowFeature(Window.FEATURE_NO_TITLE);//set to full screengetWindow().setFlags(WindowManager.Lay">
+<meta property="og:updated_time" content="2016-08-25T20:59:22.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Android常用代码4">
+<meta name="twitter:description" content="欢迎来到风的博客-设置全屏的方法
+-添加自定义控件属性
+###设置全屏的方法在java代码中设置，需要将代码放在setContentView()之前1234//set no title barrequestWindowFeature(Window.FEATURE_NO_TITLE);//set to full screengetWindow().setFlags(WindowManager.Lay">
+  
+    <link rel="alternate" href="/atom.xml" title="Feng Blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Feng Blog</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">To be or not to be that is a question</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://ysrfeng.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-2015-10-30-android4" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/03/15/2015-10-30-android4/" class="article-date">
+  <time datetime="2015-03-15T08:07:56.000Z" itemprop="datePublished">2015-03-15</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Android/">Android</a>►<a class="article-category-link" href="/categories/Android/常用代码块/">常用代码块</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Android常用代码4
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="欢迎来到风的博客"><a href="#欢迎来到风的博客" class="headerlink" title="欢迎来到风的博客"></a>欢迎来到风的博客</h1><p>-<strong>设置全屏的方法</strong></p>
+<p>-<strong>添加自定义控件属性</strong></p>
+<p>###设置全屏的方法<br>在java代码中设置，需要将代码放在setContentView()之前<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">//set no title bar</div><div class="line">requestWindowFeature(Window.FEATURE_NO_TITLE);</div><div class="line">//set to full screen</div><div class="line">getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);</div></pre></td></tr></table></figure></p>
+<p>在AndroidManifest.xml中配置<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">android:theme=&quot;@android:style/Theme.Black.NoTitleBar.Fullscreen&quot;</div></pre></td></tr></table></figure></p>
+<p>###添加自定义控件属性<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div></pre></td><td class="code"><pre><div class="line">1. 在res/values文件下定义一个attrs.xml文件.代码如下: </div><div class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</div><div class="line">&lt;resources&gt;</div><div class="line">        </div><div class="line">    &lt;declare-styleable name=&quot;MyCustomAttr&quot;&gt;</div><div class="line">        </div><div class="line">        &lt;!-- </div><div class="line">        	说明: reference：参考某一资源ID </div><div class="line">        	使用：Customxmlns:AttrBackground = &quot;@drawable/...&quot;</div><div class="line">        --&gt;</div><div class="line">        &lt;attr name=&quot;AttrBackground&quot; format=&quot;reference&quot; /&gt;</div><div class="line">        </div><div class="line">        &lt;!-- </div><div class="line">        	说明: color：颜色值</div><div class="line">        	使用：Customxmlns:AttrColor = &quot;@color/...&quot;</div><div class="line">        --&gt;</div><div class="line">        &lt;attr name=&quot;AttrColor&quot; format=&quot;color&quot; /&gt;</div><div class="line">        </div><div class="line">        &lt;!-- </div><div class="line">        	说明: boolean：布尔值</div><div class="line">        	使用：Customxmlns:CustomBoolean = &quot;true&quot;</div><div class="line">        --&gt;</div><div class="line">        &lt;attr name=&quot;CustomBoolean&quot; format=&quot;boolean&quot; /&gt;      </div><div class="line">        </div><div class="line">        &lt;!-- </div><div class="line">        	说明: dimension：尺寸值</div><div class="line">        	使用：Customxmlns:CustomDimension = &quot;100dip&quot;</div><div class="line">        --&gt;</div><div class="line">        &lt;attr name=&quot;CustomDimension&quot; format=&quot;dimension&quot; /&gt;</div><div class="line">        </div><div class="line">        &lt;!-- </div><div class="line">        	说明: float：浮点值</div><div class="line">        	使用：Customxmlns:CustomFloat = &quot;0.8&quot;</div><div class="line">        --&gt;</div><div class="line">        &lt;attr name=&quot;CustomFloat&quot; format=&quot;float&quot; /&gt;</div><div class="line">        </div><div class="line">        &lt;!-- </div><div class="line">        	说明: integer：整型值</div><div class="line">        	使用：Customxmlns:CustomInteger = &quot;100&quot;</div><div class="line">        --&gt;</div><div class="line">        &lt;attr name=&quot;CustomInteger&quot; format=&quot;integer&quot; /&gt;</div><div class="line">        </div><div class="line">        &lt;!-- </div><div class="line">        	说明: string：字符串</div><div class="line">        	使用：Customxmlns:CustomString = &quot;@string/...&quot;</div><div class="line">        --&gt;</div><div class="line">        &lt;attr name = &quot;CustomString&quot; format=&quot;string&quot; /&gt;</div><div class="line">        </div><div class="line">        &lt;!-- </div><div class="line">        	说明: fraction：百分数</div><div class="line">        	使用：Customxmlns:CustomFraction = &quot;50%&quot;</div><div class="line">        --&gt;</div><div class="line">        &lt;attr name = &quot;CustomFraction&quot; format=&quot;fraction&quot; /&gt;</div><div class="line">        </div><div class="line">        &lt;!-- </div><div class="line">        	说明: enum：枚举值</div><div class="line">        	使用：Customxmlns:CustomOrientation = &quot;vertical&quot;</div><div class="line">        --&gt;</div><div class="line">        &lt;attr name=&quot;CustomOrientation&quot;&gt;</div><div class="line">        	&lt;enum name=&quot;horizontal&quot; value=&quot;0&quot; /&gt;</div><div class="line">            &lt;enum name=&quot;vertical&quot; value=&quot;1&quot; /&gt;</div><div class="line">        &lt;/attr&gt;    </div><div class="line">        </div><div class="line">        &lt;!-- </div><div class="line">        	说明:  flag：位或运算</div><div class="line">        	使用：Customxmlns:CustomWindowSoftInputMode = &quot;stateUnspecified | stateUnchanged&quot;</div><div class="line">        --&gt;</div><div class="line">        &lt;attr name=&quot;CustomWindowSoftInputMode&quot;&gt;</div><div class="line">        	&lt;flag name=&quot;stateUnspecified&quot; value=&quot;0&quot; /&gt;</div><div class="line">            &lt;flag name=&quot;stateUnchanged&quot; value=&quot;1&quot; /&gt;</div><div class="line">            &lt;flag name=&quot;stateHidden&quot; value=&quot;2&quot; /&gt;</div><div class="line">        &lt;/attr&gt;</div><div class="line">        </div><div class="line">        &lt;!-- </div><div class="line">        	说明:  属性定义时可以指定多种类型值</div><div class="line">        	使用：Customxmlns:CustomBackground = &quot;@drawable/图片ID|#00FF00&quot;</div><div class="line">        --&gt;</div><div class="line">        &lt;attr name=&quot;CustomBackground&quot; format=&quot;reference|color&quot; /&gt;</div><div class="line">        </div><div class="line">    &lt;/declare-styleable&gt;</div><div class="line"></div><div class="line">&lt;/resources&gt;</div><div class="line"></div><div class="line">2. 在布局xml中如下使用该属性(其中com.customattrs为包名):</div><div class="line">&lt;com.customattrs.MyCustomView</div><div class="line">        xmlns:canremovechild=&quot;http://schemas.android.com/apk/res/com.customattrs&quot;</div><div class="line">        android:layout_width=&quot;match_parent&quot;</div><div class="line">        android:layout_height=&quot;match_parent&quot;</div><div class="line">        canremovechild:CustomBoolean=&quot;true&quot; /&gt;</div><div class="line"></div><div class="line">3. 在自定义组件中，可以如下获得xml中定义的值:</div><div class="line">在MyCustomView.java中的构造函数中：</div><div class="line">public MyCustomView(Context context, AttributeSet attrs) &#123;</div><div class="line">	super(context, attrs);</div><div class="line">		</div><div class="line">	TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.MyCustomAttr);</div><div class="line">	boolean canRemoveChild = a.getBoolean(R.styleable.MyCustomAttr_CustomBoolean, false);</div><div class="line">	a.recycle();</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://ysrfeng.github.io/2015/03/15/2015-10-30-android4/" data-id="cj0w28arl0004fzcni66d8ffa" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2015/03/21/2015-10-30-android5/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          px,dip(dp),sp,dpi,分辨率详解
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2014/08/30/2015-10-30-android10/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">listview优化</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Android/">Android</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Android/HttpClient/">HttpClient</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Android/setOnTouchListener/">setOnTouchListener</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Android/zxing/">zxing</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Android/zxing/二维码/">二维码</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Android/常用代码块/">常用代码块</a></li></ul></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">八月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/">七月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">六月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/05/">五月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">三月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/08/">八月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/07/">七月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/06/">六月 2014</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2015/08/05/2015-10-31-android11/">Android网络传输中必用的两个加密算法</a>
+          </li>
+        
+          <li>
+            <a href="/2015/07/15/2015-11-04-android13/">实现扫描二维码和生成带logo的二维码</a>
+          </li>
+        
+          <li>
+            <a href="/2015/06/23/2015-10-31-android12/">Android中Socket通信</a>
+          </li>
+        
+          <li>
+            <a href="/2015/06/15/2015-10-30-android9/">实现左右点击图片预览</a>
+          </li>
+        
+          <li>
+            <a href="/2015/06/02/2015-10-30-android8/">判断sdCard是否挂载</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017 YangShirong<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

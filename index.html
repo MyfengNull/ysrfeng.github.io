@@ -65,10 +65,10 @@
       <div class="outer">
         <section id="main">
   
-    <article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-2015-10-31-android11" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2017/03/29/hello-world/" class="article-date">
-  <time datetime="2017-03-29T12:01:26.000Z" itemprop="datePublished">2017-03-29</time>
+    <a href="/2015/08/05/2015-10-31-android11/" class="article-date">
+  <time datetime="2015-08-05T01:57:32.000Z" itemprop="datePublished">2015-08-05</time>
 </a>
     
   </div>
@@ -79,7 +79,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/03/29/hello-world/">Hello World</a>
+      <a class="article-title" href="/2015/08/05/2015-10-31-android11/">Android网络传输中必用的两个加密算法</a>
     </h1>
   
 
@@ -87,20 +87,445 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo generate</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
+        <p>#欢迎来到风的博客</p>
+<p>###MD5 和 RSA<br>MD5和RSA是网络传输中最常用的两个算法，了解这两个算法原理后就能大致知道加密是怎么一回事了。但这两种算法使用环境有差异，刚好互补</p>
+<hr>
+<h2 id="MD5加密"><a href="#MD5加密" class="headerlink" title="MD5加密"></a>MD5加密</h2><p>######首先MD5是不可逆的，只能加密而不能解密。比如明文是yanzi1225627,得到MD5加密后的字符串是:14F2AE15259E2C276A095E7394DA0CA9  但不能由后面一大串倒推出yanzi1225627.因此可以用来存储用户输入的密码在服务器上。现在下载文件校验文件是否中途被篡改也是用的它，原理参见：<a href="http://blog.csdn.net/forgotaboutgirl/article/details/7258109" target="_blank" rel="external">http://blog.csdn.net/forgotaboutgirl/article/details/7258109</a> 无论在Android上还是pc上用java实现MD5都比较容易，因为java已经把它做到了java.security.MessageDigest里。下面是一个MD5Util.java类：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line">package org.md5.util;</div><div class="line">import java.security.MessageDigest;</div><div class="line">public class MD5Util &#123;</div><div class="line">	public final static String getMD5String(String s) &#123;</div><div class="line">		char hexDigits[] = &#123; &apos;0&apos;, &apos;1&apos;, &apos;2&apos;, &apos;3&apos;, &apos;4&apos;,</div><div class="line">				&apos;5&apos;, &apos;6&apos;, &apos;7&apos;, &apos;8&apos;, &apos;9&apos;,</div><div class="line">				&apos;A&apos;, &apos;B&apos;, &apos;C&apos;, &apos;D&apos;, &apos;E&apos;, &apos;F&apos; &#125;;</div><div class="line">		try &#123;</div><div class="line">			byte[] btInput = s.getBytes();</div><div class="line">			//获得MD5摘要算法的 MessageDigest 对象</div><div class="line">			MessageDigest mdInst = MessageDigest.getInstance(&quot;MD5&quot;);</div><div class="line">			//使用指定的字节更新摘要</div><div class="line">			mdInst.update(btInput);</div><div class="line">			//获得密文</div><div class="line">			byte[] md = mdInst.digest();</div><div class="line">			//把密文转换成十六进制的字符串形式</div><div class="line">			int j = md.length;</div><div class="line">			char str[] = new char[j * 2];</div><div class="line">			int k = 0;</div><div class="line">			for (int i = 0; i &lt; j; i++) &#123;</div><div class="line">				byte byte0 = md[i];</div><div class="line">				str[k++] = hexDigits[byte0 &gt;&gt;&gt; 4 &amp; 0xf];</div><div class="line">				str[k++] = hexDigits[byte0 &amp; 0xf];</div><div class="line">			&#125;</div><div class="line">			return new String(str);</div><div class="line">		&#125;</div><div class="line">		catch (Exception e) &#123;</div><div class="line">			e.printStackTrace();</div><div class="line">			return null;</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>通过下面两行代码调用:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">//MD5加密测试</div><div class="line">		String srcString = &quot;yanzi1225627&quot;;</div><div class="line">		System.out.println(&quot;MD5加密后 = &quot; + MD5Util.getMD5String(srcString));</div></pre></td></tr></table></figure></p>
+<p>##RSA 加密<br>RSA是可逆的，一个字符串可以经rsa加密后，经加密后的字符串传到对端如服务器上，再进行解密即可。前提是服务器知道解密的私钥，当然这个私钥最好不要再网络传输。<br><strong>RSA算法描述中需要以下几个变量:</strong></p>
+<ul>
+<li><strong>1:</strong>p和q 是不相等的，足够大的两个质数。 p和q是保密的</li>
+<li><strong>2:</strong>n = p*q n是公开的</li>
+<li><strong>3:</strong>f(n) = (p-1)*(q-1)</li>
+<li><strong>4:</strong>e 是和f(n)互质的质数</li>
+<li><strong>5:</strong>计算参数d </li>
+<li><strong>6:</strong>经过上面5步计算得到公钥KU=(e,n) 私钥KR=(d,n)<br>下面两篇文章对此有清晰的描述:<br><a href="http://wenku.baidu.com/view/e53fbe36a32d7375a417801b.html" target="_blank" rel="external">http://wenku.baidu.com/view/e53fbe36a32d7375a417801b.html</a><br><a href="http://bank.hexun.com/2009-06-24/118958531.html" target="_blank" rel="external">http://bank.hexun.com/2009-06-24/118958531.html</a><br>####下面是java实现RSAUtil.java类:<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div><div class="line">129</div><div class="line">130</div><div class="line">131</div><div class="line">132</div><div class="line">133</div><div class="line">134</div><div class="line">135</div><div class="line">136</div><div class="line">137</div><div class="line">138</div><div class="line">139</div><div class="line">140</div><div class="line">141</div><div class="line">142</div><div class="line">143</div><div class="line">144</div><div class="line">145</div><div class="line">146</div><div class="line">147</div><div class="line">148</div><div class="line">149</div><div class="line">150</div><div class="line">151</div><div class="line">152</div><div class="line">153</div><div class="line">154</div><div class="line">155</div><div class="line">156</div><div class="line">157</div><div class="line">158</div><div class="line">159</div><div class="line">160</div><div class="line">161</div><div class="line">162</div><div class="line">163</div><div class="line">164</div><div class="line">165</div><div class="line">166</div><div class="line">167</div><div class="line">168</div><div class="line">169</div><div class="line">170</div><div class="line">171</div><div class="line">172</div><div class="line">173</div><div class="line">174</div><div class="line">175</div><div class="line">176</div><div class="line">177</div><div class="line">178</div><div class="line">179</div><div class="line">180</div><div class="line">181</div><div class="line">182</div><div class="line">183</div><div class="line">184</div><div class="line">185</div><div class="line">186</div><div class="line">187</div><div class="line">188</div><div class="line">189</div><div class="line">190</div><div class="line">191</div><div class="line">192</div><div class="line">193</div><div class="line">194</div><div class="line">195</div><div class="line">196</div><div class="line">197</div><div class="line">198</div><div class="line">199</div><div class="line">200</div><div class="line">201</div><div class="line">202</div><div class="line">203</div><div class="line">204</div></pre></td><td class="code"><pre><div class="line">import javax.crypto.Cipher;</div><div class="line">import java.security.*;</div><div class="line">import java.security.spec.RSAPublicKeySpec;</div><div class="line">import java.security.spec.RSAPrivateKeySpec;</div><div class="line">import java.security.spec.InvalidKeySpecException;</div><div class="line">import java.security.interfaces.RSAPrivateKey;</div><div class="line">import java.security.interfaces.RSAPublicKey;</div><div class="line">import java.io.*;</div><div class="line">import java.math.BigInteger;</div><div class="line"></div><div class="line">/**</div><div class="line"> * RSA 工具类。提供加密，解密，生成密钥对等方法。</div><div class="line"> * 需要到http://www.bouncycastle.org下载bcprov-jdk14-123.jar。</div><div class="line"> * RSA加密原理概述  </div><div class="line"> * RSA的安全性依赖于大数的分解，公钥和私钥都是两个大素数（大于100的十进制位）的函数。  </div><div class="line"> * 据猜测，从一个密钥和密文推断出明文的难度等同于分解两个大素数的积  </div><div class="line"> * ===================================================================  </div><div class="line"> * （该算法的安全性未得到理论的证明）  </div><div class="line"> * ===================================================================  </div><div class="line"> * 密钥的产生：  </div><div class="line"> * 1.选择两个大素数 p,q ,计算 n=p*q;  </div><div class="line"> * 2.随机选择加密密钥 e ,要求 e 和 (p-1)*(q-1)互质  </div><div class="line"> * 3.利用 Euclid 算法计算解密密钥 d , 使其满足 e*d = 1(mod(p-1)*(q-1)) (其中 n,d 也要互质)  </div><div class="line"> * 4:至此得出公钥为 (n,e) 私钥为 (n,d)  </div><div class="line"> * ===========================================================</div><div class="line"> * 加解密方法：  </div><div class="line"> * 1.首先将要加密的信息 m(二进制表示) 分成等长的数据块 m1,m2,...,mi 块长 s(尽可能大) ,其中 2^s&lt;n  </div><div class="line"> * 2:对应的密文是： ci = mi^e(mod n)  </div><div class="line"> * 3:解密时作如下计算： mi = ci^d(mod n)  </div><div class="line"> * ===========================================================</div><div class="line"> * RSA速度  </div><div class="line"> * 由于进行的都是大数计算，使得RSA最快的情况也比DES慢上100倍，无论 是软件还是硬件实现。  </div><div class="line"> * 速度一直是RSA的缺陷。一般来说只用于少量数据 加密。 </div><div class="line"> *文件名：RSAUtil.java&lt;br&gt;</div><div class="line"> *@author 董利伟&lt;br&gt;</div><div class="line"> *版本:&lt;br&gt;</div><div class="line"> *描述：&lt;br&gt;</div><div class="line"> *创建时间:2008-9-23 下午09:58:16&lt;br&gt;</div><div class="line"> *文件描述：&lt;br&gt;</div><div class="line"> *修改者：&lt;br&gt;</div><div class="line"> *修改日期：&lt;br&gt;</div><div class="line"> *修改描述：&lt;br&gt;</div><div class="line"> */</div><div class="line">public class RSAUtil &#123;</div><div class="line">	//密钥对</div><div class="line">	private KeyPair keyPair = null;</div><div class="line">	/**</div><div class="line">	 * 初始化密钥对</div><div class="line">	 */</div><div class="line">	public RSAUtil()&#123;</div><div class="line">		try &#123;</div><div class="line">			this.keyPair = this.generateKeyPair();</div><div class="line">		&#125; catch (Exception e) &#123;</div><div class="line">			e.printStackTrace();</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">	/**</div><div class="line">	* 生成密钥对</div><div class="line">	* @return KeyPair</div><div class="line">	* @throws Exception</div><div class="line">	*/</div><div class="line">	private KeyPair generateKeyPair() throws Exception &#123;</div><div class="line">		try &#123;</div><div class="line">			KeyPairGenerator keyPairGen = KeyPairGenerator.getInstance(&quot;RSA&quot;,new org.bouncycastle.jce.provider.BouncyCastleProvider());</div><div class="line">			//这个值关系到块加密的大小，可以更改，但是不要太大，否则效率会低</div><div class="line">			final int KEY_SIZE = 1024;</div><div class="line">			keyPairGen.initialize(KEY_SIZE, new SecureRandom());</div><div class="line">			KeyPair keyPair = keyPairGen.genKeyPair();</div><div class="line">			return keyPair;</div><div class="line">		&#125; catch (Exception e) &#123;</div><div class="line">			throw new Exception(e.getMessage());</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">	/**</div><div class="line">	* 生成公钥</div><div class="line">	* @param modulus</div><div class="line">	* @param publicExponent</div><div class="line">	* @return RSAPublicKey</div><div class="line">	* @throws Exception</div><div class="line">	*/</div><div class="line">	private RSAPublicKey generateRSAPublicKey(byte[] modulus, byte[] publicExponent) throws Exception &#123;</div><div class="line">		KeyFactory keyFac = null;</div><div class="line">		try &#123;</div><div class="line">			keyFac = KeyFactory.getInstance(&quot;RSA&quot;, new org.bouncycastle.jce.provider.BouncyCastleProvider());</div><div class="line">		&#125; catch (NoSuchAlgorithmException ex) &#123;</div><div class="line">		throw new Exception(ex.getMessage());</div><div class="line">		&#125;</div><div class="line">		RSAPublicKeySpec pubKeySpec = new RSAPublicKeySpec(new BigInteger(modulus), new BigInteger(publicExponent));</div><div class="line">		try &#123;</div><div class="line">			return (RSAPublicKey) keyFac.generatePublic(pubKeySpec);</div><div class="line">		&#125; catch (InvalidKeySpecException ex) &#123;</div><div class="line">			throw new Exception(ex.getMessage());</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">	/**</div><div class="line">	* 生成私钥</div><div class="line">	* @param modulus</div><div class="line">	* @param privateExponent</div><div class="line">	* @return RSAPrivateKey</div><div class="line">	* @throws Exception</div><div class="line">	*/</div><div class="line">	private RSAPrivateKey generateRSAPrivateKey(byte[] modulus, byte[] privateExponent) throws Exception &#123;</div><div class="line">		KeyFactory keyFac = null;</div><div class="line">		try &#123;</div><div class="line">			keyFac = KeyFactory.getInstance(&quot;RSA&quot;, new org.bouncycastle.jce.provider.BouncyCastleProvider());</div><div class="line">		&#125; catch (NoSuchAlgorithmException ex) &#123;</div><div class="line">			throw new Exception(ex.getMessage());</div><div class="line">		&#125;</div><div class="line">		RSAPrivateKeySpec priKeySpec = new RSAPrivateKeySpec(new BigInteger(modulus), new BigInteger(privateExponent));</div><div class="line">		try &#123;</div><div class="line">			return (RSAPrivateKey) keyFac.generatePrivate(priKeySpec);</div><div class="line">		&#125; catch (InvalidKeySpecException ex) &#123;</div><div class="line">			throw new Exception(ex.getMessage());</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">	/**</div><div class="line">	* 加密</div><div class="line">	* @param key 加密的密钥</div><div class="line">	* @param data 待加密的明文数据</div><div class="line">	* @return 加密后的数据</div><div class="line">	* @throws Exception</div><div class="line">	*/</div><div class="line">	public byte[] encrypt(Key key, byte[] data) throws Exception &#123;</div><div class="line">		try &#123;</div><div class="line">			Cipher cipher = Cipher.getInstance(&quot;RSA&quot;, new org.bouncycastle.jce.provider.BouncyCastleProvider());</div><div class="line">			cipher.init(Cipher.ENCRYPT_MODE, key);</div><div class="line">			//获得加密块大小，如:加密前数据为128个byte，而key_size=1024 加密块大小为127 byte,加密后为128个byte;</div><div class="line">			//因此共有2个加密块，第一个127 byte第二个为1个byte</div><div class="line">			int blockSize = cipher.getBlockSize();</div><div class="line">			int outputSize = cipher.getOutputSize(data.length);//获得加密块加密后块大小</div><div class="line">			int leavedSize = data.length % blockSize;</div><div class="line">			int blocksSize = leavedSize != 0 ? data.length / blockSize + 1 : data.length / blockSize;</div><div class="line">			byte[] raw = new byte[outputSize * blocksSize];</div><div class="line">			int i = 0;</div><div class="line">			while (data.length - i * blockSize &gt; 0) &#123;</div><div class="line">				if (data.length - i * blockSize &gt; blockSize)</div><div class="line">				cipher.doFinal(data, i * blockSize, blockSize, raw, i * outputSize);</div><div class="line">				else</div><div class="line">				cipher.doFinal(data, i * blockSize, data.length - i * blockSize, raw, i * outputSize);</div><div class="line">				//这里面doUpdate方法不可用，查看源代码后发现每次doUpdate后并没有什么实际动作除了把byte[]放到ByteArrayOutputStream中</div><div class="line">				//，而最后doFinal的时候才将所有的byte[]进行加密，可是到了此时加密块大小很可能已经超出了OutputSize所以只好用dofinal方法。</div><div class="line">				i++;</div><div class="line">			&#125;</div><div class="line">			return raw;</div><div class="line">		&#125; catch (Exception e) &#123;</div><div class="line">		throw new Exception(e.getMessage());</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">	/**</div><div class="line">	* 解密</div><div class="line">	* @param key 解密的密钥</div><div class="line">	* @param raw 已经加密的数据</div><div class="line">	* @return 解密后的明文</div><div class="line">	* @throws Exception</div><div class="line">	*/</div><div class="line">	public byte[] decrypt(Key key, byte[] raw) throws Exception &#123;</div><div class="line">		try &#123;</div><div class="line">			Cipher cipher = Cipher.getInstance(&quot;RSA&quot;, new org.bouncycastle.jce.provider.BouncyCastleProvider());</div><div class="line">			cipher.init(cipher.DECRYPT_MODE, key);</div><div class="line">			int blockSize = cipher.getBlockSize();</div><div class="line">			ByteArrayOutputStream bout = new ByteArrayOutputStream(64);</div><div class="line">			int j = 0;</div><div class="line">			while (raw.length - j * blockSize &gt; 0) &#123;</div><div class="line">				bout.write(cipher.doFinal(raw, j * blockSize, blockSize));</div><div class="line">				j++;</div><div class="line">			&#125;</div><div class="line">			return bout.toByteArray();</div><div class="line">		&#125; catch (Exception e) &#123;</div><div class="line">			throw new Exception(e.getMessage());</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">	/**</div><div class="line">	 * 返回公钥</div><div class="line">	 * @return</div><div class="line">	 * @throws Exception </div><div class="line">	 */</div><div class="line">	public RSAPublicKey getRSAPublicKey() throws Exception&#123;</div><div class="line">		//获取公钥</div><div class="line">		RSAPublicKey pubKey = (RSAPublicKey) keyPair.getPublic();</div><div class="line">		//获取公钥系数(字节数组形式)</div><div class="line">		byte[] pubModBytes = pubKey.getModulus().toByteArray();</div><div class="line">		//返回公钥公用指数(字节数组形式)</div><div class="line">		byte[] pubPubExpBytes = pubKey.getPublicExponent().toByteArray();</div><div class="line">		//生成公钥</div><div class="line">		RSAPublicKey recoveryPubKey = this.generateRSAPublicKey(pubModBytes,pubPubExpBytes);</div><div class="line">		return recoveryPubKey;</div><div class="line">	&#125;</div><div class="line">	/**</div><div class="line">	 * 获取私钥</div><div class="line">	 * @return</div><div class="line">	 * @throws Exception </div><div class="line">	 */</div><div class="line">	public RSAPrivateKey getRSAPrivateKey() throws Exception&#123;</div><div class="line">		//获取私钥</div><div class="line">		RSAPrivateKey priKey = (RSAPrivateKey) keyPair.getPrivate();</div><div class="line">		//返回私钥系数(字节数组形式)</div><div class="line">		byte[] priModBytes = priKey.getModulus().toByteArray();</div><div class="line">		//返回私钥专用指数(字节数组形式)</div><div class="line">		byte[] priPriExpBytes = priKey.getPrivateExponent().toByteArray();</div><div class="line">		//生成私钥</div><div class="line">		RSAPrivateKey recoveryPriKey = this.generateRSAPrivateKey(priModBytes,priPriExpBytes);</div><div class="line">		return recoveryPriKey;</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>测试代码:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">try &#123;</div><div class="line">	RSAUtil rsa = new RSAUtil();</div><div class="line">	String str = &quot;yanzi1225627&quot;;</div><div class="line">	RSAPublicKey pubKey = rsa.getRSAPublicKey();</div><div class="line">	RSAPrivateKey priKey = rsa.getRSAPrivateKey();</div><div class="line">	byte[] enRsaBytes = rsa.encrypt(pubKey,str.getBytes());</div><div class="line">	String enRsaStr = new String(enRsaBytes, &quot;UTF-8&quot;);</div><div class="line">	System.out.println(&quot;加密后==&quot; + enRsaStr);</div><div class="line">	System.out.println(&quot;解密后==&quot; + new String(rsa.decrypt(priKey, rsa.encrypt(pubKey,str.getBytes()))));</div><div class="line">&#125; catch (Exception e) &#123;</div><div class="line">	// TODO Auto-generated catch block</div><div class="line">	e.printStackTrace();</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>下面是执行结果:<br>加密后==s?ko?1@lo????BJ?iE???1Ux?Kx&amp;??=??nO?    ?l?&gt;?????2r?y??8v-    \A??`????r?t3?-3y?hjL?M??Se?Z???????~?”??e??XZ?苜?<br>解密后==yanzi1225627<br>上面代码需要用到一个包rsa.jar,下载链接及上面的测试代码我已打包，下载链接见下：<br><a href="http://download.csdn.net/detail/yanzi1225627/7382263" target="_blank" rel="external">http://download.csdn.net/detail/yanzi1225627/7382263</a></p>
+<blockquote>
+<p>原文引自<a href="http://blog.csdn.net/yanzi1225627/article/details/26508035" target="_blank" rel="external">http://blog.csdn.net/yanzi1225627/article/details/26508035</a></p>
+</blockquote>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://ysrfeng.github.io/2017/03/29/hello-world/" data-id="cj0ux91ia0000v8cnzf34pq0w" class="article-share-link">Share</a>
+      <a data-url="http://ysrfeng.github.io/2015/08/05/2015-10-31-android11/" data-id="cj0w28as2000ffzcnhszbjnzg" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-2015-11-04-android13" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/07/15/2015-11-04-android13/" class="article-date">
+  <time datetime="2015-07-15T11:44:46.000Z" itemprop="datePublished">2015-07-15</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Android/">Android</a>►<a class="article-category-link" href="/categories/Android/zxing/">zxing</a>►<a class="article-category-link" href="/categories/Android/zxing/二维码/">二维码</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/07/15/2015-11-04-android13/">实现扫描二维码和生成带logo的二维码</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>#欢迎来到风的博客<br>今天讲的是如何引用google的zxing库实现扫描二维码和生成带logo的二维码,源码库可以从github上下载[<a href="https://github.com/zxing/zxing];在文章结尾也会分享我的Demo" target="_blank" rel="external">https://github.com/zxing/zxing];在文章结尾也会分享我的Demo</a></p>
+<p>#####扫描二维码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">Intent startScan = new Intent(MainActivity.this,CaptureActivity.class);</div><div class="line">    startActivity(startScan);</div></pre></td></tr></table></figure></p>
+<p>#####生成不带logo的二维码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div></pre></td><td class="code"><pre><div class="line">  String in = input.getText().toString();</div><div class="line">                if (in.equals(&quot;&quot;)) &#123;</div><div class="line">                    Toast.makeText(MainActivity.this, &quot;请输入文本&quot;, Toast.LENGTH_SHORT).show();</div><div class="line">                &#125;</div><div class="line">                try &#123;</div><div class="line"></div><div class="line">//TODO 也可以生成二维码</div><div class="line">//                    Bitmap qrcod = EncodingHandler.createQRCode(in, 400);</div><div class="line">//                    img.setImageBitmap(qrcod);</div><div class="line">                    // 写入数据信息到图片</div><div class="line">                    int width = 400, height = 400;</div><div class="line">                    QRCodeWriter writer = new QRCodeWriter();</div><div class="line"></div><div class="line">                    //把内容编码</div><div class="line">                    BitMatrix matrix = writer.encode(in, BarcodeFormat.QR_CODE, width, height);</div><div class="line">                    int ms[] = new int[width * height];</div><div class="line">                    //变换赋值</div><div class="line">                    for (int y = 0; y &lt; height; y++) &#123;</div><div class="line">                        for (int x = 0; x &lt; width; x++) &#123;</div><div class="line">                            if (matrix.get(x, y)) &#123;</div><div class="line">                                //黑点</div><div class="line">                                ms[y * width + x] = 0xff000000;</div><div class="line">                            &#125; else &#123;</div><div class="line">                                //白点</div><div class="line">                                ms[y * width + x] = 0xffffffff;</div><div class="line">                            &#125;</div><div class="line">                        &#125;</div><div class="line">                    &#125;</div><div class="line">                    //TODO 缓存</div><div class="line">                    Bitmap image = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);</div><div class="line">                    image.setPixels(ms, 0, width, 0, 0, width, height);</div><div class="line">                    //TODO 展示图片</div><div class="line">                    img.setImageBitmap(image);</div><div class="line">                    FileOutputStream out = new FileOutputStream(&quot;/sdcard/code2.png&quot;);</div><div class="line">                    //TODO 压缩</div><div class="line">                    image.compress(Bitmap.CompressFormat.PNG, 100, out);</div><div class="line">                    Log.e(&quot;MMMM&quot;, &quot;创建成功&quot;);</div><div class="line">                &#125; catch (WriterException e) &#123;</div><div class="line">                    e.printStackTrace();</div><div class="line">                &#125; catch (FileNotFoundException e) &#123;</div><div class="line">                    e.printStackTrace();</div><div class="line">                &#125;</div><div class="line">            &#125;</div></pre></td></tr></table></figure></p>
+<p>#####带logo的二维码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div></pre></td><td class="code"><pre><div class="line">//Todo 带logo的二维码</div><div class="line">   @Override</div><div class="line">   public void onClick(View v) &#123;</div><div class="line"></div><div class="line">       String in = input.getText().toString();</div><div class="line">       if (in.equals(&quot;&quot;)) &#123;</div><div class="line">           Toast.makeText(MainActivity.this, &quot;请输入文本&quot;, Toast.LENGTH_SHORT).show();</div><div class="line">       &#125;</div><div class="line">       try &#123;</div><div class="line">           // 写入数据信息到图片</div><div class="line">           int width = 400, height = 400;</div><div class="line">           QRCodeWriter writer = new QRCodeWriter();</div><div class="line">           //把内容编码</div><div class="line">           BitMatrix matrix = writer.encode(in, BarcodeFormat.QR_CODE, width, height);</div><div class="line">           int ms[] = new int[width * height];</div><div class="line">           //变换赋值</div><div class="line">           for (int y = 0; y &lt; height; y++) &#123;</div><div class="line">               for (int x = 0; x &lt; width; x++) &#123;</div><div class="line">                   if (matrix.get(x, y)) &#123;</div><div class="line">                       //黑点</div><div class="line">                       ms[y * width + x] = 0xff000000;</div><div class="line">                   &#125; else &#123;</div><div class="line">                       //白点</div><div class="line">                       ms[y * width + x] = 0xffffffff;</div><div class="line">                   &#125;</div><div class="line"></div><div class="line">               &#125;</div><div class="line"></div><div class="line">           &#125;</div><div class="line">           //TODO 缓存</div><div class="line">           Bitmap image = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);</div><div class="line">           image.setPixels(ms, 0, width, 0, 0, width, height);</div><div class="line">           //logo地址</div><div class="line">           Bitmap logo = BitmapFactory.decodeFile(&quot;/sdcard/gur03.png&quot;);</div><div class="line">           image = insertLogo(image, logo);</div><div class="line">           //TODO 展示图片</div><div class="line">           img.setImageBitmap(image);</div><div class="line">           //存储生成的二维码地址</div><div class="line">           FileOutputStream out = new FileOutputStream(&quot;/sdcard/code2.png&quot;);</div><div class="line">           //TODO 压缩</div><div class="line">           image.compress(Bitmap.CompressFormat.PNG, 100, out);</div><div class="line">           Log.e(&quot;MMMM&quot;, &quot;创建成功&quot;);</div><div class="line"></div><div class="line">       &#125; catch (WriterException e) &#123;</div><div class="line">           e.printStackTrace();</div><div class="line">       &#125; catch (FileNotFoundException e) &#123;</div><div class="line">           e.printStackTrace();</div><div class="line">       &#125;</div><div class="line">   &#125;</div><div class="line"></div><div class="line">   public Bitmap insertLogo(Bitmap src, Bitmap logo) &#123;</div><div class="line">       // 获取到两张图片的宽高</div><div class="line">       int width = src.getWidth();</div><div class="line">       int height = src.getHeight();</div><div class="line">       int gwidth = logo.getWidth();</div><div class="line">       int gheight = logo.getHeight();</div><div class="line">       // 大小图片的比例</div><div class="line">       float scale = width * 1.0f / 5 / gwidth;</div><div class="line">       // 工作缓冲区</div><div class="line">       Bitmap bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);</div><div class="line">       // 获取缓冲区的画布</div><div class="line">       Canvas ca = new Canvas(bitmap);</div><div class="line">       // 话大图片</div><div class="line">       ca.drawBitmap(src, 0, 0, null);</div><div class="line">       ca.scale(scale, scale, width / 2, height / 2);</div><div class="line">       // 话小图片</div><div class="line">       ca.drawBitmap(logo, (width - gwidth) / 2, (height - gheight) / 2, null);</div><div class="line">       // 保存所画内容</div><div class="line">       ca.save(Canvas.ALL_SAVE_FLAG);</div><div class="line">       // 还原画布</div><div class="line">       ca.restore();</div><div class="line">       return bitmap;</div><div class="line">   &#125;</div></pre></td></tr></table></figure></p>
+<p>注意利用画布将图片覆盖在生成的二维码上,图片是30*30的,<br>原理是二维码中间有可以忽略的阴影<br>app引用BarCodeTest类库<br>Demo下载地址:<a href="https://github.com/MyfengNull/QrCode" target="_blank" rel="external">https://github.com/MyfengNull/QrCode</a></p>
+<blockquote>
+<p>本文原创下载请注明出处</p>
+</blockquote>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://ysrfeng.github.io/2015/07/15/2015-11-04-android13/" data-id="cj0w28as9000ifzcn7dweh107" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-2015-10-31-android12" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/06/23/2015-10-31-android12/" class="article-date">
+  <time datetime="2015-06-23T11:24:35.000Z" itemprop="datePublished">2015-06-23</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/06/23/2015-10-31-android12/">Android中Socket通信</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>#欢迎来到风的博客</p>
+<p>###Android中Socket通信</p>
+<p> <strong>Socket链接的建立过程 </strong></p>
+<ul>
+<li><strong>1服务器监听</strong></li>
+<li><strong>2客户端发出请求</strong> </li>
+<li><strong>3建立链接</strong> </li>
+<li><strong>4通信</strong> </li>
+</ul>
+<p> <strong>Socket特点 </strong></p>
+<ul>
+<li><strong>1Socket基于TCP链接,数据传输有保障</strong></li>
+<li><strong>2适用于建立长时间链接</strong> </li>
+<li><strong>3Socket编程常应用于即时通讯</strong> </li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://ysrfeng.github.io/2015/06/23/2015-10-31-android12/" data-id="cj0w28as7000hfzcnmlpzxt9t" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-2015-10-30-android9" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/06/15/2015-10-30-android9/" class="article-date">
+  <time datetime="2015-06-15T08:59:34.000Z" itemprop="datePublished">2015-06-15</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Android/">Android</a>►<a class="article-category-link" href="/categories/Android/setOnTouchListener/">setOnTouchListener</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/06/15/2015-10-30-android9/">实现左右点击图片预览</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>#欢迎来到风的博客</p>
+<p>###实现左右点击图片预览<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div></pre></td><td class="code"><pre><div class="line">public class MainActivity extends Activity &#123;</div><div class="line">	private ImageView iv;</div><div class="line">	int img_[] = new int[] &#123; R.drawable.img_1, R.drawable.img_2,</div><div class="line">			R.drawable.img_3, R.drawable.img_4, R.drawable.img_5,</div><div class="line">			R.drawable.img_6, R.drawable.img_7, R.drawable.img_8,</div><div class="line">			R.drawable.img_9, &#125;;</div><div class="line">	int count = 0;</div><div class="line"></div><div class="line">	@Override</div><div class="line">	protected void onCreate(Bundle savedInstanceState) &#123;</div><div class="line">		super.onCreate(savedInstanceState);</div><div class="line">		setContentView(R.layout.activity_main);</div><div class="line"></div><div class="line">		final int width = this.getWindowManager().getDefaultDisplay()</div><div class="line">				.getWidth();</div><div class="line">		iv = (ImageView) findViewById(R.id.imageView1);</div><div class="line">		iv.setOnTouchListener(new View.OnTouchListener() &#123;</div><div class="line">			@Override</div><div class="line">			public boolean onTouch(View v, MotionEvent event) &#123;</div><div class="line">				ImageView view = (ImageView) v;</div><div class="line">				int x = (int) event.getX();</div><div class="line">				if (x &gt;= (width / 2)) &#123;</div><div class="line">					if (count == 8) &#123;</div><div class="line">						count = -1;</div><div class="line">					&#125;</div><div class="line">					view.setImageResource(img_[++count]);</div><div class="line">				&#125; else &#123;</div><div class="line">					if (x &lt; (width / 2)) &#123;</div><div class="line">						if (count == 0) &#123;</div><div class="line">							count = 9;</div><div class="line">						&#125;</div><div class="line">						view.setImageResource(img_[--count]);</div><div class="line">					&#125;</div><div class="line">				&#125;</div><div class="line">				return false;</div><div class="line">			&#125;</div><div class="line">		&#125;);</div><div class="line"></div><div class="line">	&#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://ysrfeng.github.io/2015/06/15/2015-10-30-android9/" data-id="cj0w28arz000dfzcn13zhbvqt" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-2015-10-30-android8" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/06/02/2015-10-30-android8/" class="article-date">
+  <time datetime="2015-06-02T08:54:58.000Z" itemprop="datePublished">2015-06-02</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Android/">Android</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/06/02/2015-10-30-android8/">判断sdCard是否挂载</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>#欢迎来到风的博客</p>
+<p>###判断sdCard是否挂载<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div></pre></td><td class="code"><pre><div class="line">public class FileUtils &#123;</div><div class="line">	</div><div class="line">	/**</div><div class="line">	 * 判断sdCard是否挂载</div><div class="line">	 * @return</div><div class="line">	 */</div><div class="line">	public static boolean isConnSdCard()&#123;</div><div class="line">		if(Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED))&#123;</div><div class="line">			return true;</div><div class="line">		&#125;</div><div class="line">		return false;</div><div class="line">	&#125;</div><div class="line">	/**</div><div class="line">	 * 将图片的字节数组保存到  sd卡上</div><div class="line">	 * @return</div><div class="line">	 */</div><div class="line">	public static boolean writeToSdcard(byte[] buffer ,String imagName)&#123;</div><div class="line">		FileOutputStream outputStream =null;</div><div class="line">		</div><div class="line">		boolean flag = false;</div><div class="line">		</div><div class="line">		String fileName = imagName.substring(imagName.lastIndexOf(&quot;/&quot;)+1);</div><div class="line">		File file = new File(Environment.</div><div class="line">				getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS),</div><div class="line">				fileName);</div><div class="line">		try &#123;</div><div class="line">			</div><div class="line">			outputStream = new FileOutputStream(file);</div><div class="line">			outputStream.write(buffer);</div><div class="line">			flag = true;</div><div class="line">		&#125; catch (FileNotFoundException e) &#123;</div><div class="line">			// TODO Auto-generated catch block</div><div class="line">			e.printStackTrace();</div><div class="line">		&#125; catch (IOException e) &#123;</div><div class="line">			// TODO Auto-generated catch block</div><div class="line">			e.printStackTrace();</div><div class="line">		&#125;finally&#123;</div><div class="line">			if(outputStream!=null)&#123;</div><div class="line">				try &#123;</div><div class="line">					outputStream.close();</div><div class="line">				&#125; catch (IOException e) &#123;</div><div class="line">					// TODO Auto-generated catch block</div><div class="line">					e.printStackTrace();</div><div class="line">				&#125;</div><div class="line">			&#125;</div><div class="line">		&#125;</div><div class="line">		</div><div class="line">		return flag;</div><div class="line">		</div><div class="line">	&#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://ysrfeng.github.io/2015/06/02/2015-10-30-android8/" data-id="cj0w28art000afzcndf39gnt7" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-2015-10-30-android7" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/05/08/2015-10-30-android7/" class="article-date">
+  <time datetime="2015-05-08T08:44:28.000Z" itemprop="datePublished">2015-05-08</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Android/">Android</a>►<a class="article-category-link" href="/categories/Android/HttpClient/">HttpClient</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/05/08/2015-10-30-android7/">判断是否有网络</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>#欢迎来到风的博客</p>
+<p>###Android判断是否有网络<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div></pre></td><td class="code"><pre><div class="line">public class HttpUtils &#123;</div><div class="line">	/**</div><div class="line">	 * 判断是否有网络</div><div class="line">	 * @param context</div><div class="line">	 * @return</div><div class="line">	 */</div><div class="line">	public static boolean isNetWork(Context context)&#123;</div><div class="line">		//得到网络的管理者</div><div class="line">		ConnectivityManager manager = (ConnectivityManager) </div><div class="line">				context.getSystemService(Context.CONNECTIVITY_SERVICE);</div><div class="line">		NetworkInfo info = manager.getActiveNetworkInfo();</div><div class="line">		</div><div class="line">		if(info!=null)&#123;</div><div class="line">			return true;</div><div class="line">					</div><div class="line">		&#125;else&#123;</div><div class="line">			return false;</div><div class="line">		&#125;</div><div class="line">		</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	</div><div class="line">	/**</div><div class="line">	 * 获取数据</div><div class="line">	 * @param path</div><div class="line">	 * @return</div><div class="line">	 */</div><div class="line">	public static byte[] getData(String path) &#123;</div><div class="line">		HttpClient httpClient = new DefaultHttpClient();</div><div class="line">		HttpGet httpGet = new HttpGet(path);</div><div class="line">		ByteArrayOutputStream outputStream = new ByteArrayOutputStream();</div><div class="line">		try &#123;</div><div class="line">			HttpResponse response = httpClient.execute(httpGet);</div><div class="line">			if (response.getStatusLine().getStatusCode() == 200) &#123;</div><div class="line">				InputStream inputStream = response.getEntity().getContent();</div><div class="line">				byte[] buffer = new byte[1024];</div><div class="line">				int temp = 0;</div><div class="line">				while ((temp = inputStream.read(buffer)) != -1) &#123;</div><div class="line">					outputStream.write(buffer, 0, temp);</div><div class="line">					outputStream.flush();</div><div class="line">				&#125;</div><div class="line"></div><div class="line">			&#125;</div><div class="line">			return outputStream.toByteArray();</div><div class="line"></div><div class="line">		&#125; catch (ClientProtocolException e) &#123;</div><div class="line">			// TODO Auto-generated catch block</div><div class="line">			e.printStackTrace();</div><div class="line">		&#125; catch (IOException e) &#123;</div><div class="line">			// TODO Auto-generated catch block</div><div class="line">			e.printStackTrace();</div><div class="line">		&#125;</div><div class="line"></div><div class="line">		return null;</div><div class="line"></div><div class="line">	&#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://ysrfeng.github.io/2015/05/08/2015-10-30-android7/" data-id="cj0w28arw000bfzcnhaw4b4ef" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-2015-10-30-android6" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/05/06/2015-10-30-android6/" class="article-date">
+  <time datetime="2015-05-06T08:40:49.000Z" itemprop="datePublished">2015-05-06</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Android/">Android</a>►<a class="article-category-link" href="/categories/Android/常用代码块/">常用代码块</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/05/06/2015-10-30-android6/">重写listview,使其嵌套scrollview</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>#欢迎来到风的博客</p>
+<p>###重写listview,使其嵌套scrollview<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line">import android.content.Context;</div><div class="line">import android.util.AttributeSet;</div><div class="line">import android.widget.ListView;</div><div class="line"></div><div class="line">public class ListViewForScrollView extends ListView &#123;</div><div class="line">	public ListViewForScrollView(Context context) &#123;</div><div class="line">		super(context);</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	public ListViewForScrollView(Context context, AttributeSet attrs) &#123;</div><div class="line">		super(context, attrs);</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	public ListViewForScrollView(Context context, AttributeSet attrs, int defStyle) &#123;</div><div class="line">		super(context, attrs, defStyle);</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	/**</div><div class="line">	* 重写该方法，达到使ListView适应ScrollView的效果</div><div class="line">	*/</div><div class="line">	@Override</div><div class="line">	protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) &#123;</div><div class="line">		int expandSpec = MeasureSpec.makeMeasureSpec(Integer.MAX_VALUE &gt;&gt; 2,	MeasureSpec.AT_MOST);</div><div class="line">		super.onMeasure(widthMeasureSpec, expandSpec);</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://ysrfeng.github.io/2015/05/06/2015-10-30-android6/" data-id="cj0w28arr0008fzcnveuoayb3" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-2015-10-30-android5" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/03/21/2015-10-30-android5/" class="article-date">
+  <time datetime="2015-03-21T08:26:34.000Z" itemprop="datePublished">2015-03-21</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Android/">Android</a>►<a class="article-category-link" href="/categories/Android/常用代码块/">常用代码块</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/03/21/2015-10-30-android5/">px,dip(dp),sp,dpi,分辨率详解</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>#欢迎来到风的博客</p>
+<p>###px,dip(dp),sp,dpi,分辨率详解<br>1.px (pixels)像素: 是像素，就是屏幕上实际的像素点单位。<br> dip或dp (device independent pixels)设备独立像素， 与设备屏幕有关。<br> sp (scaled pixels : best for text size)：类似dp， 主要处理字体的大小。<br>dpi(dot per inch):屏幕像素密度，每英寸多少像素</p>
+<p>density：density表示每英寸有多少个显示点(逻辑值)，它的单位是dpi</p>
+<p>2.dpi是屏幕像素密度。就是1英寸上像素点的个数。对于屏幕来说，dpi越大，屏幕的精细度越高，屏幕看起来就越清楚。比如iphone4的视网膜级的屏幕肯定比iphone 3gs的屏幕像素密度高的多。</p>
+<p>3.sp由于是放大像素，主要是用于字体显示，由此根据google的建议，TextView的字体大小最好用sp做单位</p>
+<p>4.dp是与密度无关，sp除了与密度无关外，还与scale无关。如果屏幕密度为160，这时dp和sp和px是一样的。1dp=1sp=1px，但如果使用px作单位，如果屏幕大小不变（假设还是3.2寸），而屏幕密度变成了320。那么原来TextView的宽度设成160px，在密度为320的3.2寸屏幕里看要比在密度为160的3.2寸屏幕上看短了一半。但如果设置成160dp或160sp的话。系统会自动将width属性值设置成320px的。也就是160 * 320 / 160。其中320 / 160可称为密度比例因子。也就是说，如果使用dp和sp，系统会根据屏幕密度的变化自动进行转换。 </p>
+<p>5.dip值 =（dpi值/160）* pixel值</p>
+<p>6.像素密度和分辨率是两个不同的概念，分辨率是总的像素点，像素密度是单位长度的像素点</p>
+<p>HVGA屏density=160；QVGA屏density=120；WVGA屏density=240；WQVGA屏density=120</p>
+<p>VGA：Video Graphics Array，即：显示绘图矩阵，相当于640×480<br>HVGA：Half-size VGA；即：VGA的一半，分辨率为480×320；</p>
+<p>QVGA：Quarter VGA；即：VGA的四分之一，分辨率为320×240；</p>
+<p>WVGA：Wide Video Graphics Array；即：扩大的VGA，分辨率为800×480像素；</p>
+<p>WQVGA：Wide Quarter VGA；即：扩大的QVGA，分辨率比QVGA高，比VGA低，一般是：400×240，480×272</p>
+<hr>
+<p>px   ：是屏幕的像素点<br>in    ：英寸<br>mm ：毫米<br>pt    ：磅，1/72 英寸<br>dp   ：一个基于density的抽象单位，如果一个160dpi的屏幕，1dp=1px<br>dip  ：等同于dp<br>sp   ：同dp相似，但还会根据用户的字体大小偏好来缩放。<br>建议使用sp作为文本的单位，其它用dip<br>针对dip和px 的关系，做以下概述：<br>QVGA屏density=120；          QVGA（240<em>320）<br>HVGA屏density=160；          HVGA（320</em>480）<br>WVGA屏density=240；         WVGA（480<em>800）<br>WQVGA屏density=120          WQVGA（240</em>400）<br>density值表示每英寸有多少个显示点，与分辨率是两个概念。<br>不同density下屏幕分辨率信息，以480dip<em>800dip的 WVGA(density=240)为例<br>density=120时<br>屏幕实际分辨率为240px</em>400px （两个点对应一个分辨率）<br>状态栏和标题栏高各19px或者25dip<br>横屏是屏幕宽度400px 或者800dip,工作区域高度211px或者480dip<br>竖屏时屏幕宽度240px或者480dip,工作区域高度381px或者775dip</p>
+<p>density=160时<br>屏幕实际分辨率为320px*533px （3个点对应两个分辨率）<br>状态栏和标题栏高个25px或者25dip<br>横屏是屏幕宽度533px 或者800dip,工作区域高度295px或者480dip<br>竖屏时屏幕宽度320px或者480dip,工作区域高度508px或者775dip</p>
+<p>density=240时<br>屏幕实际分辨率为480px*800px （一个点对于一个分辨率）<br>状态栏和标题栏高个38px或者25dip<br>横屏是屏幕宽度800px 或者800dip,工作区域高度442px或者480dip<br>竖屏时屏幕宽度480px或者480dip,工作区域高度762px或者775dip</p>
+<p>apk的资源包中<br>当屏幕density=240时，使用hdpi 标签的资源<br>当屏幕density=160时，使用mdpi标签的资源<br>当屏幕density=120时，使用ldpi标签的资源。<br>不加任何标签的资源是各种分辨率情况下共用的。<br>布局时尽量使用单位dip，少使用px</p>
+<p>dp与px换算公式：</p>
+<p>$$  pixs =dips <em> (densityDpi/160)$$<br>$$  dips=(pixs</em>160)/densityDpi$$</p>
+<p>dp这个单位可能对web开发的人比较陌生,因为一般都是使用px(像素)<br>但是,现在在开始android应用和游戏后,基本上都转换成用dp作用为单位了,因为可以支持多种分辨率的手机.</p>
+<p>以下是这两个单位的概念:<br>px (pixels)像素: 一个像素通常被视为图像的最小的完整采样，这个用的比较多,特别是web开发,页面基本都是使用像素作为单位的.<br>dip或dp (device independent pixels)设备独立像素 ― 这个和设备硬件有关，一般我们为了支持手机上多种分辨率,如WVGA、HVGA和QVGA,都会使用dip作为长度的单位<br>在Android开发我们一般都可以不需要使用px的,但是某一些控件的属性没有直接支持dip,像下面的代码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">android.view.ViewGroup.LayoutParams.height</div><div class="line">android.view.ViewGroup.LayoutParams.width</div></pre></td></tr></table></figure></p>
+<p>上面这两个属性的单位为像素,但是为了兼容多种分辨率的手机,我们需要最好使用dip,时候我们可以调用以下的代码进行转换.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">int heightPx= DisplayUtil.dip2px(this, 33);</div><div class="line">mTabHost.getTabWidget().getChildAt(i).getLayoutParams().height = heightPx;</div></pre></td></tr></table></figure></p>
+<p>以上代码可以在我另一篇文章看得到.该功能是设置Tab的高度,单位是像素.以上的单位转换是为了支持多分辨率手机的.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">public static int dip2px(Context context, float dpValue) &#123;</div><div class="line">	final float scale = context.getResources().getDisplayMetrics().density;</div><div class="line">	return (int) (dpValue * scale + 0.5f);</div><div class="line">&#125;</div><div class="line"> </div><div class="line">public static int px2dip(Context context, float pxValue) &#123;</div><div class="line">	final float scale = context.getResources().getDisplayMetrics().density;</div><div class="line">	return (int) (pxValue / scale + 0.5f);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://ysrfeng.github.io/2015/03/21/2015-10-30-android5/" data-id="cj0w28arq0007fzcnjy59ka79" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-2015-10-30-android4" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/03/15/2015-10-30-android4/" class="article-date">
+  <time datetime="2015-03-15T08:07:56.000Z" itemprop="datePublished">2015-03-15</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Android/">Android</a>►<a class="article-category-link" href="/categories/Android/常用代码块/">常用代码块</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/03/15/2015-10-30-android4/">Android常用代码4</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="欢迎来到风的博客"><a href="#欢迎来到风的博客" class="headerlink" title="欢迎来到风的博客"></a>欢迎来到风的博客</h1><p>-<strong>设置全屏的方法</strong></p>
+<p>-<strong>添加自定义控件属性</strong></p>
+<p>###设置全屏的方法<br>在java代码中设置，需要将代码放在setContentView()之前<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">//set no title bar</div><div class="line">requestWindowFeature(Window.FEATURE_NO_TITLE);</div><div class="line">//set to full screen</div><div class="line">getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);</div></pre></td></tr></table></figure></p>
+<p>在AndroidManifest.xml中配置<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">android:theme=&quot;@android:style/Theme.Black.NoTitleBar.Fullscreen&quot;</div></pre></td></tr></table></figure></p>
+<p>###添加自定义控件属性<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div></pre></td><td class="code"><pre><div class="line">1. 在res/values文件下定义一个attrs.xml文件.代码如下: </div><div class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</div><div class="line">&lt;resources&gt;</div><div class="line">        </div><div class="line">    &lt;declare-styleable name=&quot;MyCustomAttr&quot;&gt;</div><div class="line">        </div><div class="line">        &lt;!-- </div><div class="line">        	说明: reference：参考某一资源ID </div><div class="line">        	使用：Customxmlns:AttrBackground = &quot;@drawable/...&quot;</div><div class="line">        --&gt;</div><div class="line">        &lt;attr name=&quot;AttrBackground&quot; format=&quot;reference&quot; /&gt;</div><div class="line">        </div><div class="line">        &lt;!-- </div><div class="line">        	说明: color：颜色值</div><div class="line">        	使用：Customxmlns:AttrColor = &quot;@color/...&quot;</div><div class="line">        --&gt;</div><div class="line">        &lt;attr name=&quot;AttrColor&quot; format=&quot;color&quot; /&gt;</div><div class="line">        </div><div class="line">        &lt;!-- </div><div class="line">        	说明: boolean：布尔值</div><div class="line">        	使用：Customxmlns:CustomBoolean = &quot;true&quot;</div><div class="line">        --&gt;</div><div class="line">        &lt;attr name=&quot;CustomBoolean&quot; format=&quot;boolean&quot; /&gt;      </div><div class="line">        </div><div class="line">        &lt;!-- </div><div class="line">        	说明: dimension：尺寸值</div><div class="line">        	使用：Customxmlns:CustomDimension = &quot;100dip&quot;</div><div class="line">        --&gt;</div><div class="line">        &lt;attr name=&quot;CustomDimension&quot; format=&quot;dimension&quot; /&gt;</div><div class="line">        </div><div class="line">        &lt;!-- </div><div class="line">        	说明: float：浮点值</div><div class="line">        	使用：Customxmlns:CustomFloat = &quot;0.8&quot;</div><div class="line">        --&gt;</div><div class="line">        &lt;attr name=&quot;CustomFloat&quot; format=&quot;float&quot; /&gt;</div><div class="line">        </div><div class="line">        &lt;!-- </div><div class="line">        	说明: integer：整型值</div><div class="line">        	使用：Customxmlns:CustomInteger = &quot;100&quot;</div><div class="line">        --&gt;</div><div class="line">        &lt;attr name=&quot;CustomInteger&quot; format=&quot;integer&quot; /&gt;</div><div class="line">        </div><div class="line">        &lt;!-- </div><div class="line">        	说明: string：字符串</div><div class="line">        	使用：Customxmlns:CustomString = &quot;@string/...&quot;</div><div class="line">        --&gt;</div><div class="line">        &lt;attr name = &quot;CustomString&quot; format=&quot;string&quot; /&gt;</div><div class="line">        </div><div class="line">        &lt;!-- </div><div class="line">        	说明: fraction：百分数</div><div class="line">        	使用：Customxmlns:CustomFraction = &quot;50%&quot;</div><div class="line">        --&gt;</div><div class="line">        &lt;attr name = &quot;CustomFraction&quot; format=&quot;fraction&quot; /&gt;</div><div class="line">        </div><div class="line">        &lt;!-- </div><div class="line">        	说明: enum：枚举值</div><div class="line">        	使用：Customxmlns:CustomOrientation = &quot;vertical&quot;</div><div class="line">        --&gt;</div><div class="line">        &lt;attr name=&quot;CustomOrientation&quot;&gt;</div><div class="line">        	&lt;enum name=&quot;horizontal&quot; value=&quot;0&quot; /&gt;</div><div class="line">            &lt;enum name=&quot;vertical&quot; value=&quot;1&quot; /&gt;</div><div class="line">        &lt;/attr&gt;    </div><div class="line">        </div><div class="line">        &lt;!-- </div><div class="line">        	说明:  flag：位或运算</div><div class="line">        	使用：Customxmlns:CustomWindowSoftInputMode = &quot;stateUnspecified | stateUnchanged&quot;</div><div class="line">        --&gt;</div><div class="line">        &lt;attr name=&quot;CustomWindowSoftInputMode&quot;&gt;</div><div class="line">        	&lt;flag name=&quot;stateUnspecified&quot; value=&quot;0&quot; /&gt;</div><div class="line">            &lt;flag name=&quot;stateUnchanged&quot; value=&quot;1&quot; /&gt;</div><div class="line">            &lt;flag name=&quot;stateHidden&quot; value=&quot;2&quot; /&gt;</div><div class="line">        &lt;/attr&gt;</div><div class="line">        </div><div class="line">        &lt;!-- </div><div class="line">        	说明:  属性定义时可以指定多种类型值</div><div class="line">        	使用：Customxmlns:CustomBackground = &quot;@drawable/图片ID|#00FF00&quot;</div><div class="line">        --&gt;</div><div class="line">        &lt;attr name=&quot;CustomBackground&quot; format=&quot;reference|color&quot; /&gt;</div><div class="line">        </div><div class="line">    &lt;/declare-styleable&gt;</div><div class="line"></div><div class="line">&lt;/resources&gt;</div><div class="line"></div><div class="line">2. 在布局xml中如下使用该属性(其中com.customattrs为包名):</div><div class="line">&lt;com.customattrs.MyCustomView</div><div class="line">        xmlns:canremovechild=&quot;http://schemas.android.com/apk/res/com.customattrs&quot;</div><div class="line">        android:layout_width=&quot;match_parent&quot;</div><div class="line">        android:layout_height=&quot;match_parent&quot;</div><div class="line">        canremovechild:CustomBoolean=&quot;true&quot; /&gt;</div><div class="line"></div><div class="line">3. 在自定义组件中，可以如下获得xml中定义的值:</div><div class="line">在MyCustomView.java中的构造函数中：</div><div class="line">public MyCustomView(Context context, AttributeSet attrs) &#123;</div><div class="line">	super(context, attrs);</div><div class="line">		</div><div class="line">	TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.MyCustomAttr);</div><div class="line">	boolean canRemoveChild = a.getBoolean(R.styleable.MyCustomAttr_CustomBoolean, false);</div><div class="line">	a.recycle();</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://ysrfeng.github.io/2015/03/15/2015-10-30-android4/" data-id="cj0w28arl0004fzcni66d8ffa" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-2015-10-30-android10" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2014/08/30/2015-10-30-android10/" class="article-date">
+  <time datetime="2014-08-30T13:05:52.000Z" itemprop="datePublished">2014-08-30</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2014/08/30/2015-10-30-android10/">listview优化</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>#欢迎来到风的博客</p>
+<p>###listview优化<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line"> @Override</div><div class="line">    public View getView(int position, View convertView, ViewGroup parent) &#123;</div><div class="line">//        LayoutInflater inflater = LayoutInflater.from(context);</div><div class="line">//        layout = (LinearLayout) inflater.inflate(R.layout.item, null);</div><div class="line">//        TextView tvName = (TextView) layout.findViewById(R.id.tvName);</div><div class="line">//        TextView tvNumber = (TextView) layout.findViewById(R.id.tvNumber);</div><div class="line">//        tvName.setText(list.get(position).getName());</div><div class="line">//        tvNumber.setText(list.get(position).getNumber());</div><div class="line">        //listview优化</div><div class="line">        ViewHolder holder;</div><div class="line">        if (convertView == null) &#123;</div><div class="line">            convertView = LayoutInflater.from(context).inflate(R.layout.item, null);</div><div class="line">            holder = new ViewHolder();</div><div class="line">            holder.tvName = (TextView) convertView.findViewById(R.id.tvName);</div><div class="line">            holder.tvNumber = (TextView) convertView.findViewById(R.id.tvNumber);</div><div class="line">            holder.tvName.setText(list.get(position).getName());</div><div class="line">            holder.tvNumber.setText(list.get(position).getNumber());</div><div class="line">            convertView.setTag(holder);</div><div class="line">        &#125; else &#123;</div><div class="line">            holder = (ViewHolder) convertView.getTag();</div><div class="line">            holder.tvName.setText(list.get(position).getName());</div><div class="line">            holder.tvNumber.setText(list.get(position).getNumber());</div><div class="line">        &#125;</div><div class="line">//return layout</div><div class="line">        return convertView;</div><div class="line">    &#125;</div><div class="line">    private static class ViewHolder&#123;</div><div class="line">        TextView tvName;</div><div class="line">        TextView tvNumber;</div><div class="line">    &#125;</div></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://ysrfeng.github.io/2014/08/30/2015-10-30-android10/" data-id="cj0w28arn0005fzcnfdwb7l21" class="article-share-link">Share</a>
       
       
     </footer>
@@ -111,11 +536,22 @@
 
   
 
+
+  <nav id="page-nav">
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">__('next') &raquo;</a>
+  </nav>
 </section>
         
           <aside id="sidebar">
   
     
+  <div class="widget-wrap">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Android/">Android</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Android/HttpClient/">HttpClient</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Android/setOnTouchListener/">setOnTouchListener</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Android/zxing/">zxing</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Android/zxing/二维码/">二维码</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Android/常用代码块/">常用代码块</a></li></ul></li></ul>
+    </div>
+  </div>
+
 
   
     
@@ -127,7 +563,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">归档</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">三月 2017</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">八月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/">七月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">六月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/05/">五月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">三月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/08/">八月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/07/">七月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/06/">六月 2014</a></li></ul>
     </div>
   </div>
 
@@ -140,7 +576,23 @@
       <ul>
         
           <li>
-            <a href="/2017/03/29/hello-world/">Hello World</a>
+            <a href="/2015/08/05/2015-10-31-android11/">Android网络传输中必用的两个加密算法</a>
+          </li>
+        
+          <li>
+            <a href="/2015/07/15/2015-11-04-android13/">实现扫描二维码和生成带logo的二维码</a>
+          </li>
+        
+          <li>
+            <a href="/2015/06/23/2015-10-31-android12/">Android中Socket通信</a>
+          </li>
+        
+          <li>
+            <a href="/2015/06/15/2015-10-30-android9/">实现左右点击图片预览</a>
+          </li>
+        
+          <li>
+            <a href="/2015/06/02/2015-10-30-android8/">判断sdCard是否挂载</a>
           </li>
         
       </ul>
