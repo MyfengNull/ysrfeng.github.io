@@ -10,11 +10,13 @@
 At the Google I/O keynote，Kotlin 成为 Android 官方编程语言
 ACM-ICPC World Finals 2018将新增Kotlin作为编程语言
 数组集合类型Collections
+有序不可重复  -Array
+无序不重复 -set
+无序可重复 -Map
 
 
-1.有序不可重复  -Array2.无序不重复 -set3.无序可重复 -Map
 
-大小固定，元素类型不可变 123456fun mai">
+大小固定，元素类型不可变 123456fun main(ar">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Kotlin数组使用">
 <meta property="og:url" content="http://ysrfeng.github.io/2017/06/14/2017-06-14-android14/index.html">
@@ -24,12 +26,14 @@ ACM-ICPC World Finals 2018将新增Kotlin作为编程语言
 At the Google I/O keynote，Kotlin 成为 Android 官方编程语言
 ACM-ICPC World Finals 2018将新增Kotlin作为编程语言
 数组集合类型Collections
+有序不可重复  -Array
+无序不重复 -set
+无序可重复 -Map
 
 
-1.有序不可重复  -Array2.无序不重复 -set3.无序可重复 -Map
 
-大小固定，元素类型不可变 123456fun mai">
-<meta property="og:updated_time" content="2017-06-14T12:06:17.000Z">
+大小固定，元素类型不可变 123456fun main(ar">
+<meta property="og:updated_time" content="2017-06-14T12:15:52.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Kotlin数组使用">
 <meta name="twitter:description" content="欢迎来到风的博客Kotlin动态 
@@ -37,11 +41,13 @@ ACM-ICPC World Finals 2018将新增Kotlin作为编程语言
 At the Google I/O keynote，Kotlin 成为 Android 官方编程语言
 ACM-ICPC World Finals 2018将新增Kotlin作为编程语言
 数组集合类型Collections
+有序不可重复  -Array
+无序不重复 -set
+无序可重复 -Map
 
 
-1.有序不可重复  -Array2.无序不重复 -set3.无序可重复 -Map
 
-大小固定，元素类型不可变 123456fun mai">
+大小固定，元素类型不可变 123456fun main(ar">
   
     <link rel="alternate" href="/atom.xml" title="Feng Blog" type="application/atom+xml">
   
@@ -97,7 +103,7 @@ ACM-ICPC World Finals 2018将新增Kotlin作为编程语言
         <section id="main"><article id="post-2017-06-14-android14" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2017/06/14/2017-06-14-android14/" class="article-date">
-  <time datetime="2017-06-14T12:06:17.000Z" itemprop="datePublished">2017-06-14</time>
+  <time datetime="2017-06-14T12:15:52.000Z" itemprop="datePublished">2017-06-14</time>
 </a>
     
   <div class="article-category">
@@ -124,11 +130,13 @@ ACM-ICPC World Finals 2018将新增Kotlin作为编程语言
 <ul>
 <li>At the Google I/O keynote，Kotlin 成为 Android 官方编程语言</li>
 <li><p>ACM-ICPC World Finals 2018将新增Kotlin作为编程语言</p>
-<h2 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h2><h4 id="集合类型Collections"><a href="#集合类型Collections" class="headerlink" title="集合类型Collections"></a>集合类型Collections</h4></li>
+<h2 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h2><h4 id="集合类型Collections"><a href="#集合类型Collections" class="headerlink" title="集合类型Collections"></a>集合类型Collections</h4><ul>
+<li>有序不可重复  -Array</li>
+<li>无序不重复 -set</li>
+<li>无序可重复 -Map</li>
 </ul>
-<blockquote>
-<p>1.有序不可重复  -Array<br>2.无序不重复 -set<br>3.无序可重复 -Map</p>
-</blockquote>
+</li>
+</ul>
 <p><strong>大小固定，元素类型不可变 </strong><br><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">fun</span> <span class="title">main</span><span class="params">(array: <span class="type">Array</span>&lt;<span class="type">String</span>&gt;)</span></span> &#123;</div><div class="line"><span class="keyword">var</span> arrays = arrayOf(<span class="string">"java"</span>,<span class="string">"c"</span>,<span class="string">"Kotlin"</span>)</div><div class="line">   <span class="keyword">for</span> (a <span class="keyword">in</span> arrays )&#123;</div><div class="line">       println(a)</div><div class="line">	    &#125;</div><div class="line">	&#125;</div></pre></td></tr></table></figure></p>
 <p><strong>创建默认值数组</strong></p>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> arrays = Array(<span class="number">20</span>, &#123; <span class="string">"Kotlin"</span> &#125;)</div></pre></td></tr></table></figure>
@@ -137,9 +145,7 @@ ACM-ICPC World Finals 2018将新增Kotlin作为编程语言
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//数组计数</span></div><div class="line"> count.size</div><div class="line"> <span class="comment">//数组是否为空</span></div><div class="line"> count.isEmpty()</div></pre></td></tr></table></figure>
 <p><strong>过滤重复数组</strong></p>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">println(arrays.distinct())</div><div class="line"><span class="comment">//或</span></div><div class="line">println(arrays.toSet())</div></pre></td></tr></table></figure>
-<blockquote>
-<p><strong>提示： </strong>hashSetOf自身有去重</p>
-</blockquote>
+<p> <strong>提示： </strong>hashSetOf自身有去重</p>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">   <span class="keyword">var</span> has = hashSetOf(<span class="string">"java"</span>, <span class="string">"Kotlin"</span>, <span class="string">"Kotlin"</span>, <span class="string">"Kotlin"</span>, <span class="string">"Kotlin"</span>, <span class="string">"Kotlin"</span>)</div><div class="line"><span class="keyword">for</span> (h <span class="keyword">in</span> has) &#123;</div><div class="line">    println(h)</div><div class="line">&#125;</div><div class="line"><span class="comment">//输出结果  java Kotlin</span></div></pre></td></tr></table></figure>
 <p><strong>切割数组</strong></p>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">val</span>  Intercept=arrays.sliceArray(<span class="number">2.</span><span class="number">.4</span>)</div></pre></td></tr></table></figure>
@@ -156,7 +162,7 @@ ACM-ICPC World Finals 2018将新增Kotlin作为编程语言
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://ysrfeng.github.io/2017/06/14/2017-06-14-android14/" data-id="cj3wyat7h000h2qcnwo37n052" class="article-share-link">Share</a>
+      <a data-url="http://ysrfeng.github.io/2017/06/14/2017-06-14-android14/" data-id="cj3wyn6hi000m3vcndqh023g4" class="article-share-link">Share</a>
       
       
     </footer>
