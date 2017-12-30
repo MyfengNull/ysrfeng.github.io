@@ -65,6 +65,51 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-2015-10-30-android4" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/03/15/2015-10-30-android4/" class="article-date">
+  <time datetime="2015-03-15T08:07:56.000Z" itemprop="datePublished">2015-03-15</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Android/">Android</a>►<a class="article-category-link" href="/categories/Android/常用代码块/">常用代码块</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/03/15/2015-10-30-android4/">Android常用代码4</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="欢迎来到风的博客"><a href="#欢迎来到风的博客" class="headerlink" title="欢迎来到风的博客"></a>欢迎来到风的博客</h1><p>-<strong>设置全屏的方法</strong></p>
+<p>-<strong>添加自定义控件属性</strong></p>
+<p>###设置全屏的方法<br>在java代码中设置，需要将代码放在setContentView()之前<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">//set no title bar</div><div class="line">requestWindowFeature(Window.FEATURE_NO_TITLE);</div><div class="line">//set to full screen</div><div class="line">getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);</div></pre></td></tr></table></figure></p>
+<p>在AndroidManifest.xml中配置<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">android:theme=&quot;@android:style/Theme.Black.NoTitleBar.Fullscreen&quot;</div></pre></td></tr></table></figure></p>
+<p>###添加自定义控件属性<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div></pre></td><td class="code"><pre><div class="line">1. 在res/values文件下定义一个attrs.xml文件.代码如下: </div><div class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</div><div class="line">&lt;resources&gt;</div><div class="line">        </div><div class="line">    &lt;declare-styleable name=&quot;MyCustomAttr&quot;&gt;</div><div class="line">        </div><div class="line">        &lt;!-- </div><div class="line">        	说明: reference：参考某一资源ID </div><div class="line">        	使用：Customxmlns:AttrBackground = &quot;@drawable/...&quot;</div><div class="line">        --&gt;</div><div class="line">        &lt;attr name=&quot;AttrBackground&quot; format=&quot;reference&quot; /&gt;</div><div class="line">        </div><div class="line">        &lt;!-- </div><div class="line">        	说明: color：颜色值</div><div class="line">        	使用：Customxmlns:AttrColor = &quot;@color/...&quot;</div><div class="line">        --&gt;</div><div class="line">        &lt;attr name=&quot;AttrColor&quot; format=&quot;color&quot; /&gt;</div><div class="line">        </div><div class="line">        &lt;!-- </div><div class="line">        	说明: boolean：布尔值</div><div class="line">        	使用：Customxmlns:CustomBoolean = &quot;true&quot;</div><div class="line">        --&gt;</div><div class="line">        &lt;attr name=&quot;CustomBoolean&quot; format=&quot;boolean&quot; /&gt;      </div><div class="line">        </div><div class="line">        &lt;!-- </div><div class="line">        	说明: dimension：尺寸值</div><div class="line">        	使用：Customxmlns:CustomDimension = &quot;100dip&quot;</div><div class="line">        --&gt;</div><div class="line">        &lt;attr name=&quot;CustomDimension&quot; format=&quot;dimension&quot; /&gt;</div><div class="line">        </div><div class="line">        &lt;!-- </div><div class="line">        	说明: float：浮点值</div><div class="line">        	使用：Customxmlns:CustomFloat = &quot;0.8&quot;</div><div class="line">        --&gt;</div><div class="line">        &lt;attr name=&quot;CustomFloat&quot; format=&quot;float&quot; /&gt;</div><div class="line">        </div><div class="line">        &lt;!-- </div><div class="line">        	说明: integer：整型值</div><div class="line">        	使用：Customxmlns:CustomInteger = &quot;100&quot;</div><div class="line">        --&gt;</div><div class="line">        &lt;attr name=&quot;CustomInteger&quot; format=&quot;integer&quot; /&gt;</div><div class="line">        </div><div class="line">        &lt;!-- </div><div class="line">        	说明: string：字符串</div><div class="line">        	使用：Customxmlns:CustomString = &quot;@string/...&quot;</div><div class="line">        --&gt;</div><div class="line">        &lt;attr name = &quot;CustomString&quot; format=&quot;string&quot; /&gt;</div><div class="line">        </div><div class="line">        &lt;!-- </div><div class="line">        	说明: fraction：百分数</div><div class="line">        	使用：Customxmlns:CustomFraction = &quot;50%&quot;</div><div class="line">        --&gt;</div><div class="line">        &lt;attr name = &quot;CustomFraction&quot; format=&quot;fraction&quot; /&gt;</div><div class="line">        </div><div class="line">        &lt;!-- </div><div class="line">        	说明: enum：枚举值</div><div class="line">        	使用：Customxmlns:CustomOrientation = &quot;vertical&quot;</div><div class="line">        --&gt;</div><div class="line">        &lt;attr name=&quot;CustomOrientation&quot;&gt;</div><div class="line">        	&lt;enum name=&quot;horizontal&quot; value=&quot;0&quot; /&gt;</div><div class="line">            &lt;enum name=&quot;vertical&quot; value=&quot;1&quot; /&gt;</div><div class="line">        &lt;/attr&gt;    </div><div class="line">        </div><div class="line">        &lt;!-- </div><div class="line">        	说明:  flag：位或运算</div><div class="line">        	使用：Customxmlns:CustomWindowSoftInputMode = &quot;stateUnspecified | stateUnchanged&quot;</div><div class="line">        --&gt;</div><div class="line">        &lt;attr name=&quot;CustomWindowSoftInputMode&quot;&gt;</div><div class="line">        	&lt;flag name=&quot;stateUnspecified&quot; value=&quot;0&quot; /&gt;</div><div class="line">            &lt;flag name=&quot;stateUnchanged&quot; value=&quot;1&quot; /&gt;</div><div class="line">            &lt;flag name=&quot;stateHidden&quot; value=&quot;2&quot; /&gt;</div><div class="line">        &lt;/attr&gt;</div><div class="line">        </div><div class="line">        &lt;!-- </div><div class="line">        	说明:  属性定义时可以指定多种类型值</div><div class="line">        	使用：Customxmlns:CustomBackground = &quot;@drawable/图片ID|#00FF00&quot;</div><div class="line">        --&gt;</div><div class="line">        &lt;attr name=&quot;CustomBackground&quot; format=&quot;reference|color&quot; /&gt;</div><div class="line">        </div><div class="line">    &lt;/declare-styleable&gt;</div><div class="line"></div><div class="line">&lt;/resources&gt;</div><div class="line"></div><div class="line">2. 在布局xml中如下使用该属性(其中com.customattrs为包名):</div><div class="line">&lt;com.customattrs.MyCustomView</div><div class="line">        xmlns:canremovechild=&quot;http://schemas.android.com/apk/res/com.customattrs&quot;</div><div class="line">        android:layout_width=&quot;match_parent&quot;</div><div class="line">        android:layout_height=&quot;match_parent&quot;</div><div class="line">        canremovechild:CustomBoolean=&quot;true&quot; /&gt;</div><div class="line"></div><div class="line">3. 在自定义组件中，可以如下获得xml中定义的值:</div><div class="line">在MyCustomView.java中的构造函数中：</div><div class="line">public MyCustomView(Context context, AttributeSet attrs) &#123;</div><div class="line">	super(context, attrs);</div><div class="line">		</div><div class="line">	TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.MyCustomAttr);</div><div class="line">	boolean canRemoveChild = a.getBoolean(R.styleable.MyCustomAttr_CustomBoolean, false);</div><div class="line">	a.recycle();</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://ysrfeng.github.io/2015/03/15/2015-10-30-android4/" data-id="cjbt8l0ef00097fs66lj6ty6k" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-2015-10-30-android10" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2014/08/30/2015-10-30-android10/" class="article-date">
@@ -93,7 +138,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://ysrfeng.github.io/2014/08/30/2015-10-30-android10/" data-id="cj43idswe0003vwcnafi2zskq" class="article-share-link">Share</a>
+      <a data-url="http://ysrfeng.github.io/2014/08/30/2015-10-30-android10/" data-id="cjbt8l0de00017fs69irx3fcn" class="article-share-link">Share</a>
       
       
     </footer>
@@ -143,7 +188,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://ysrfeng.github.io/2014/07/30/2015-10-30-android3/" data-id="cj43idswg0004vwcnggy2qs2q" class="article-share-link">Share</a>
+      <a data-url="http://ysrfeng.github.io/2014/07/30/2015-10-30-android3/" data-id="cjbt8l0ed00087fs6wrqph6ol" class="article-share-link">Share</a>
       
       
     </footer>
@@ -197,7 +242,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://ysrfeng.github.io/2014/07/29/2015-10-29-android2/" data-id="cj43idsw10000vwcng6weokkx" class="article-share-link">Share</a>
+      <a data-url="http://ysrfeng.github.io/2014/07/29/2015-10-29-android2/" data-id="cjbt8l0d700007fs6sj4luc21" class="article-share-link">Share</a>
       
       
     </footer>
@@ -247,7 +292,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://ysrfeng.github.io/2014/06/15/2015-10-29-android1/" data-id="cj43idsw60001vwcnr6zv9apl" class="article-share-link">Share</a>
+      <a data-url="http://ysrfeng.github.io/2014/06/15/2015-10-29-android1/" data-id="cjbt8l0e000067fs61j22s7b8" class="article-share-link">Share</a>
       
       
     </footer>
@@ -285,7 +330,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">归档</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">六月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">八月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/">七月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">六月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/05/">五月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">三月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/08/">八月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/07/">七月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/06/">六月 2014</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">十二月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">六月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">八月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/">七月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">六月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/05/">五月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">三月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/08/">八月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/07/">七月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/06/">六月 2014</a></li></ul>
     </div>
   </div>
 
@@ -296,6 +341,10 @@
     <h3 class="widget-title">最新文章</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2017/12/30/2017-12-30风动/">陪伴是最长情的告白</a>
+          </li>
         
           <li>
             <a href="/2017/06/19/2017-06-14-android14/">Kotlin集合使用</a>
@@ -311,10 +360,6 @@
         
           <li>
             <a href="/2015/06/23/2015-10-31-android12/">Android中Socket通信</a>
-          </li>
-        
-          <li>
-            <a href="/2015/06/15/2015-10-30-android9/">实现左右点击图片预览</a>
           </li>
         
       </ul>
