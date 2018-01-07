@@ -65,9 +65,48 @@
       <div class="outer">
         <section id="main">
   
-    <article id="post-2017-12-30-feng" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-2018-01-07-centos" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2017/12/30/2017-12-30-feng/" class="article-date">
+    <a href="/2018/01/07/2018-01-07-centos/" class="article-date">
+  <time datetime="2018-01-07T01:24:35.000Z" itemprop="datePublished">2018-01-07</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/01/07/2018-01-07-centos/">Centos7安装Mysql</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="欢迎来到风的博客"><a href="#欢迎来到风的博客" class="headerlink" title="欢迎来到风的博客"></a>欢迎来到风的博客</h1><h3 id="Centos7安装Mysql"><a href="#Centos7安装Mysql" class="headerlink" title="Centos7安装Mysql"></a>Centos7安装Mysql</h3><p>1、配置YUM源<br><strong>下载mysql源安装包</strong><br>shell&gt; wget <a href="http://dev.mysql.com/get/mysql57-community-release-el7-8.noarch.rpm" target="_blank" rel="external">http://dev.mysql.com/get/mysql57-community-release-el7-8.noarch.rpm</a><br><strong>安装mysql源</strong><br>shell&gt; yum localinstall mysql57-community-release-el7-8.noarch.rpm<br><strong>检查mysql源是否安装成功</strong><br>shell&gt; yum repolist enabled | grep “mysql.<em>-community.</em>“<br>2、安装MySQL<br>shell&gt; yum install mysql-community-server<br>3、启动MySQL服务<br>shell&gt; systemctl start mysqld<br>4、开机启动<br>shell&gt; systemctl enable mysqld<br>shell&gt; systemctl daemon-reload<br>5、修改root默认密码<br>shell&gt; grep ‘temporary password’ /var/log/mysqld.log<br>shell&gt; mysql -uroot -p<br>mysql&gt; ALTER USER ‘root’@’localhost’ IDENTIFIED BY ‘MyNewPass4!’;<br>或者<br>mysql&gt; set password for ‘root’@’localhost’=password(‘MyNewPass4!’);</p>
+<p>6.设置ip登录<br>检查root配置<br>root用户登录<br>$ mysql -u root -p<br>切换到mysql这个数据库<br>mysql&gt; use mysql;<br>指定密码策略<br>validate_password_policy=0<br>set global validate_password_policy=0;<br>修改密码<br>update mysql.user set authentication_string=PASSWORD(‘ysrfeng-001’) where User=’root’;<br>给用户授权<br>mysql&gt; grant all privileges on <em>.</em> to ‘root’@’%’ identified by ‘123456’ with grant option;<br>使配置生效<br>mysql&gt; flush privileges;</p>
+<p><a href="http://www.cnblogs.com/ivictor/p/5142809.html" target="_blank" rel="external">http://www.cnblogs.com/ivictor/p/5142809.html</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://ysrfeng.github.io/2018/01/07/2018-01-07-centos/" data-id="cjc4anvvp000nmvs6yxzb8mco" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-2017-12-30-feng屏蔽" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/12/30/2017-12-30-feng屏蔽/" class="article-date">
   <time datetime="2017-12-30T01:01:35.000Z" itemprop="datePublished">2017-12-30</time>
 </a>
     
@@ -83,7 +122,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/12/30/2017-12-30-feng/">陪伴是最长情的告白</a>
+      <a class="article-title" href="/2017/12/30/2017-12-30-feng屏蔽/">陪伴是最长情的告白</a>
     </h1>
   
 
@@ -95,7 +134,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://ysrfeng.github.io/2017/12/30/2017-12-30-feng/" data-id="cjbt8ycxc000ha8s6fnelaqyo" class="article-share-link">Share</a>
+      <a data-url="http://ysrfeng.github.io/2017/12/30/2017-12-30-feng屏蔽/" data-id="cjc4anvvn000lmvs6cw6xahyc" class="article-share-link">Share</a>
       
       
     </footer>
@@ -169,7 +208,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://ysrfeng.github.io/2017/06/19/2017-06-14-android14/" data-id="cjbt8ycxk000oa8s6qt0upy00" class="article-share-link">Share</a>
+      <a data-url="http://ysrfeng.github.io/2017/06/19/2017-06-14-android14/" data-id="cjc4anvvs000qmvs6n83mhhef" class="article-share-link">Share</a>
       
       
     </footer>
@@ -225,7 +264,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://ysrfeng.github.io/2015/08/05/2015-10-31-android11/" data-id="cjbt8ycxg000ja8s6uipagmcv" class="article-share-link">Share</a>
+      <a data-url="http://ysrfeng.github.io/2015/08/05/2015-10-31-android11/" data-id="cjc4anvvc000emvs6xi4egd16" class="article-share-link">Share</a>
       
       
     </footer>
@@ -273,7 +312,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://ysrfeng.github.io/2015/07/15/2015-11-04-android13/" data-id="cjbt8ycxj000ma8s6qkriaets" class="article-share-link">Share</a>
+      <a data-url="http://ysrfeng.github.io/2015/07/15/2015-11-04-android13/" data-id="cjc4anvvj000imvs6go90yam7" class="article-share-link">Share</a>
       
       
     </footer>
@@ -324,7 +363,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://ysrfeng.github.io/2015/06/23/2015-10-31-android12/" data-id="cjbt8ycx6000ea8s6peiadgtk" class="article-share-link">Share</a>
+      <a data-url="http://ysrfeng.github.io/2015/06/23/2015-10-31-android12/" data-id="cjc4anvvg000hmvs6nfso5a6n" class="article-share-link">Share</a>
       
       
     </footer>
@@ -366,7 +405,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://ysrfeng.github.io/2015/06/15/2015-10-30-android9/" data-id="cjbt8ycx0000aa8s6rvsffns9" class="article-share-link">Share</a>
+      <a data-url="http://ysrfeng.github.io/2015/06/15/2015-10-30-android9/" data-id="cjc4anvva000dmvs6b2diit70" class="article-share-link">Share</a>
       
       
     </footer>
@@ -408,7 +447,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://ysrfeng.github.io/2015/06/02/2015-10-30-android8/" data-id="cjbt8ycx4000da8s64nbqz6ht" class="article-share-link">Share</a>
+      <a data-url="http://ysrfeng.github.io/2015/06/02/2015-10-30-android8/" data-id="cjc4anvv7000bmvs6bzimxohp" class="article-share-link">Share</a>
       
       
     </footer>
@@ -450,7 +489,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://ysrfeng.github.io/2015/05/08/2015-10-30-android7/" data-id="cjbt8ycwv0008a8s6gu7rgna2" class="article-share-link">Share</a>
+      <a data-url="http://ysrfeng.github.io/2015/05/08/2015-10-30-android7/" data-id="cjc4anvv4000amvs6omqz5d4r" class="article-share-link">Share</a>
       
       
     </footer>
@@ -492,71 +531,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://ysrfeng.github.io/2015/05/06/2015-10-30-android6/" data-id="cjbt8ycx2000ba8s6w2nywa2k" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-2015-10-30-android5" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2015/03/21/2015-10-30-android5/" class="article-date">
-  <time datetime="2015-03-21T08:26:34.000Z" itemprop="datePublished">2015-03-21</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Android/">Android</a>►<a class="article-category-link" href="/categories/Android/常用代码块/">常用代码块</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/03/21/2015-10-30-android5/">px,dip(dp),sp,dpi,分辨率详解</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>#欢迎来到风的博客</p>
-<p>###px,dip(dp),sp,dpi,分辨率详解<br>1.px (pixels)像素: 是像素，就是屏幕上实际的像素点单位。<br> dip或dp (device independent pixels)设备独立像素， 与设备屏幕有关。<br> sp (scaled pixels : best for text size)：类似dp， 主要处理字体的大小。<br>dpi(dot per inch):屏幕像素密度，每英寸多少像素</p>
-<p>density：density表示每英寸有多少个显示点(逻辑值)，它的单位是dpi</p>
-<p>2.dpi是屏幕像素密度。就是1英寸上像素点的个数。对于屏幕来说，dpi越大，屏幕的精细度越高，屏幕看起来就越清楚。比如iphone4的视网膜级的屏幕肯定比iphone 3gs的屏幕像素密度高的多。</p>
-<p>3.sp由于是放大像素，主要是用于字体显示，由此根据google的建议，TextView的字体大小最好用sp做单位</p>
-<p>4.dp是与密度无关，sp除了与密度无关外，还与scale无关。如果屏幕密度为160，这时dp和sp和px是一样的。1dp=1sp=1px，但如果使用px作单位，如果屏幕大小不变（假设还是3.2寸），而屏幕密度变成了320。那么原来TextView的宽度设成160px，在密度为320的3.2寸屏幕里看要比在密度为160的3.2寸屏幕上看短了一半。但如果设置成160dp或160sp的话。系统会自动将width属性值设置成320px的。也就是160 * 320 / 160。其中320 / 160可称为密度比例因子。也就是说，如果使用dp和sp，系统会根据屏幕密度的变化自动进行转换。 </p>
-<p>5.dip值 =（dpi值/160）* pixel值</p>
-<p>6.像素密度和分辨率是两个不同的概念，分辨率是总的像素点，像素密度是单位长度的像素点</p>
-<p>HVGA屏density=160；QVGA屏density=120；WVGA屏density=240；WQVGA屏density=120</p>
-<p>VGA：Video Graphics Array，即：显示绘图矩阵，相当于640×480<br>HVGA：Half-size VGA；即：VGA的一半，分辨率为480×320；</p>
-<p>QVGA：Quarter VGA；即：VGA的四分之一，分辨率为320×240；</p>
-<p>WVGA：Wide Video Graphics Array；即：扩大的VGA，分辨率为800×480像素；</p>
-<p>WQVGA：Wide Quarter VGA；即：扩大的QVGA，分辨率比QVGA高，比VGA低，一般是：400×240，480×272</p>
-<hr>
-<p>px   ：是屏幕的像素点<br>in    ：英寸<br>mm ：毫米<br>pt    ：磅，1/72 英寸<br>dp   ：一个基于density的抽象单位，如果一个160dpi的屏幕，1dp=1px<br>dip  ：等同于dp<br>sp   ：同dp相似，但还会根据用户的字体大小偏好来缩放。<br>建议使用sp作为文本的单位，其它用dip<br>针对dip和px 的关系，做以下概述：<br>QVGA屏density=120；          QVGA（240<em>320）<br>HVGA屏density=160；          HVGA（320</em>480）<br>WVGA屏density=240；         WVGA（480<em>800）<br>WQVGA屏density=120          WQVGA（240</em>400）<br>density值表示每英寸有多少个显示点，与分辨率是两个概念。<br>不同density下屏幕分辨率信息，以480dip<em>800dip的 WVGA(density=240)为例<br>density=120时<br>屏幕实际分辨率为240px</em>400px （两个点对应一个分辨率）<br>状态栏和标题栏高各19px或者25dip<br>横屏是屏幕宽度400px 或者800dip,工作区域高度211px或者480dip<br>竖屏时屏幕宽度240px或者480dip,工作区域高度381px或者775dip</p>
-<p>density=160时<br>屏幕实际分辨率为320px*533px （3个点对应两个分辨率）<br>状态栏和标题栏高个25px或者25dip<br>横屏是屏幕宽度533px 或者800dip,工作区域高度295px或者480dip<br>竖屏时屏幕宽度320px或者480dip,工作区域高度508px或者775dip</p>
-<p>density=240时<br>屏幕实际分辨率为480px*800px （一个点对于一个分辨率）<br>状态栏和标题栏高个38px或者25dip<br>横屏是屏幕宽度800px 或者800dip,工作区域高度442px或者480dip<br>竖屏时屏幕宽度480px或者480dip,工作区域高度762px或者775dip</p>
-<p>apk的资源包中<br>当屏幕density=240时，使用hdpi 标签的资源<br>当屏幕density=160时，使用mdpi标签的资源<br>当屏幕density=120时，使用ldpi标签的资源。<br>不加任何标签的资源是各种分辨率情况下共用的。<br>布局时尽量使用单位dip，少使用px</p>
-<p>dp与px换算公式：</p>
-<p>$$  pixs =dips <em> (densityDpi/160)$$<br>$$  dips=(pixs</em>160)/densityDpi$$</p>
-<p>dp这个单位可能对web开发的人比较陌生,因为一般都是使用px(像素)<br>但是,现在在开始android应用和游戏后,基本上都转换成用dp作用为单位了,因为可以支持多种分辨率的手机.</p>
-<p>以下是这两个单位的概念:<br>px (pixels)像素: 一个像素通常被视为图像的最小的完整采样，这个用的比较多,特别是web开发,页面基本都是使用像素作为单位的.<br>dip或dp (device independent pixels)设备独立像素 ― 这个和设备硬件有关，一般我们为了支持手机上多种分辨率,如WVGA、HVGA和QVGA,都会使用dip作为长度的单位<br>在Android开发我们一般都可以不需要使用px的,但是某一些控件的属性没有直接支持dip,像下面的代码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">android.view.ViewGroup.LayoutParams.height</div><div class="line">android.view.ViewGroup.LayoutParams.width</div></pre></td></tr></table></figure></p>
-<p>上面这两个属性的单位为像素,但是为了兼容多种分辨率的手机,我们需要最好使用dip,时候我们可以调用以下的代码进行转换.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">int heightPx= DisplayUtil.dip2px(this, 33);</div><div class="line">mTabHost.getTabWidget().getChildAt(i).getLayoutParams().height = heightPx;</div></pre></td></tr></table></figure></p>
-<p>以上代码可以在我另一篇文章看得到.该功能是设置Tab的高度,单位是像素.以上的单位转换是为了支持多分辨率手机的.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">public static int dip2px(Context context, float dpValue) &#123;</div><div class="line">	final float scale = context.getResources().getDisplayMetrics().density;</div><div class="line">	return (int) (dpValue * scale + 0.5f);</div><div class="line">&#125;</div><div class="line"> </div><div class="line">public static int px2dip(Context context, float pxValue) &#123;</div><div class="line">	final float scale = context.getResources().getDisplayMetrics().density;</div><div class="line">	return (int) (pxValue / scale + 0.5f);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://ysrfeng.github.io/2015/03/21/2015-10-30-android5/" data-id="cjbt8ycwo0005a8s6qyxmd4rw" class="article-share-link">Share</a>
+      <a data-url="http://ysrfeng.github.io/2015/05/06/2015-10-30-android6/" data-id="cjc4anvuv0005mvs6e321vpo0" class="article-share-link">Share</a>
       
       
     </footer>
@@ -594,7 +569,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">归档</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">十二月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">六月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">八月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/">七月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">六月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/05/">五月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">三月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/08/">八月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/07/">七月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/06/">六月 2014</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">一月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">十二月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">六月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">八月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/">七月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">六月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/05/">五月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">三月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/08/">八月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/07/">七月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/06/">六月 2014</a></li></ul>
     </div>
   </div>
 
@@ -607,7 +582,11 @@
       <ul>
         
           <li>
-            <a href="/2017/12/30/2017-12-30-feng/">陪伴是最长情的告白</a>
+            <a href="/2018/01/07/2018-01-07-centos/">Centos7安装Mysql</a>
+          </li>
+        
+          <li>
+            <a href="/2017/12/30/2017-12-30-feng屏蔽/">陪伴是最长情的告白</a>
           </li>
         
           <li>
@@ -622,10 +601,6 @@
             <a href="/2015/07/15/2015-11-04-android13/">实现扫描二维码和生成带logo的二维码</a>
           </li>
         
-          <li>
-            <a href="/2015/06/23/2015-10-31-android12/">Android中Socket通信</a>
-          </li>
-        
       </ul>
     </div>
   </div>
@@ -638,7 +613,7 @@
   
   <div class="outer">
     <div id="footer-info" class="inner">
-      &copy; 2017 YangShirong<br>
+      &copy; 2018 YangShirong<br>
       Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
     </div>
   </div>

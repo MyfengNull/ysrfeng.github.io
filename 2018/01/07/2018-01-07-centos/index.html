@@ -3,14 +3,18 @@
 <head>
   <meta charset="utf-8">
   
-  <title>归档: 2015/8 | Feng Blog</title>
+  <title>Centos7安装Mysql | Feng Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Feng Blog">
-<meta property="og:url" content="http://ysrfeng.github.io/archives/2015/08/index.html">
+  <meta name="description" content="欢迎来到风的博客Centos7安装Mysql1、配置YUM源下载mysql源安装包shell&amp;gt; wget http://dev.mysql.com/get/mysql57-community-release-el7-8.noarch.rpm安装mysql源shell&amp;gt; yum localinstall mysql57-community-release-el7-8.noarch.rpm">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Centos7安装Mysql">
+<meta property="og:url" content="http://ysrfeng.github.io/2018/01/07/2018-01-07-centos/index.html">
 <meta property="og:site_name" content="Feng Blog">
+<meta property="og:description" content="欢迎来到风的博客Centos7安装Mysql1、配置YUM源下载mysql源安装包shell&amp;gt; wget http://dev.mysql.com/get/mysql57-community-release-el7-8.noarch.rpm安装mysql源shell&amp;gt; yum localinstall mysql57-community-release-el7-8.noarch.rpm">
+<meta property="og:updated_time" content="2018-01-07T04:42:54.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Feng Blog">
+<meta name="twitter:title" content="Centos7安装Mysql">
+<meta name="twitter:description" content="欢迎来到风的博客Centos7安装Mysql1、配置YUM源下载mysql源安装包shell&amp;gt; wget http://dev.mysql.com/get/mysql57-community-release-el7-8.noarch.rpm安装mysql源shell&amp;gt; yum localinstall mysql57-community-release-el7-8.noarch.rpm">
   
     <link rel="alternate" href="/atom.xml" title="Feng Blog" type="application/atom+xml">
   
@@ -63,39 +67,54 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main">
-  
-  
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2015" class="archive-year">2015</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2015/08/05/2015-10-31-android11/" class="archive-article-date">
-  <time datetime="2015-08-05T01:57:32.000Z" itemprop="datePublished">8月 5</time>
+        <section id="main"><article id="post-2018-01-07-centos" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/01/07/2018-01-07-centos/" class="article-date">
+  <time datetime="2018-01-07T01:24:35.000Z" itemprop="datePublished">2018-01-07</time>
 </a>
-      
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2015/08/05/2015-10-31-android11/">Android网络传输中必用的两个加密算法</a>
+    <h1 class="article-title" itemprop="name">
+      Centos7安装Mysql
     </h1>
   
 
-    </header>
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="欢迎来到风的博客"><a href="#欢迎来到风的博客" class="headerlink" title="欢迎来到风的博客"></a>欢迎来到风的博客</h1><h3 id="Centos7安装Mysql"><a href="#Centos7安装Mysql" class="headerlink" title="Centos7安装Mysql"></a>Centos7安装Mysql</h3><p>1、配置YUM源<br><strong>下载mysql源安装包</strong><br>shell&gt; wget <a href="http://dev.mysql.com/get/mysql57-community-release-el7-8.noarch.rpm" target="_blank" rel="external">http://dev.mysql.com/get/mysql57-community-release-el7-8.noarch.rpm</a><br><strong>安装mysql源</strong><br>shell&gt; yum localinstall mysql57-community-release-el7-8.noarch.rpm<br><strong>检查mysql源是否安装成功</strong><br>shell&gt; yum repolist enabled | grep “mysql.<em>-community.</em>“<br>2、安装MySQL<br>shell&gt; yum install mysql-community-server<br>3、启动MySQL服务<br>shell&gt; systemctl start mysqld<br>4、开机启动<br>shell&gt; systemctl enable mysqld<br>shell&gt; systemctl daemon-reload<br>5、修改root默认密码<br>shell&gt; grep ‘temporary password’ /var/log/mysqld.log<br>shell&gt; mysql -uroot -p<br>mysql&gt; ALTER USER ‘root’@’localhost’ IDENTIFIED BY ‘MyNewPass4!’;<br>或者<br>mysql&gt; set password for ‘root’@’localhost’=password(‘MyNewPass4!’);</p>
+<p>6.设置ip登录<br>检查root配置<br>root用户登录<br>$ mysql -u root -p<br>切换到mysql这个数据库<br>mysql&gt; use mysql;<br>指定密码策略<br>validate_password_policy=0<br>set global validate_password_policy=0;<br>修改密码<br>update mysql.user set authentication_string=PASSWORD(‘ysrfeng-001’) where User=’root’;<br>给用户授权<br>mysql&gt; grant all privileges on <em>.</em> to ‘root’@’%’ identified by ‘123456’ with grant option;<br>使配置生效<br>mysql&gt; flush privileges;</p>
+<p><a href="http://www.cnblogs.com/ivictor/p/5142809.html" target="_blank" rel="external">http://www.cnblogs.com/ivictor/p/5142809.html</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://ysrfeng.github.io/2018/01/07/2018-01-07-centos/" data-id="cjc4anvvp000nmvs6yxzb8mco" class="article-share-link">Share</a>
+      
+      
+    </footer>
   </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2017/12/30/2017-12-30-feng屏蔽/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">陪伴是最长情的告白</div>
+    </a>
+  
+</nav>
+
+  
 </article>
-  
-  
-    </div></section>
-  
 
 </section>
         
