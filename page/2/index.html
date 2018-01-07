@@ -65,70 +65,6 @@
       <div class="outer">
         <section id="main">
   
-    <article id="post-2015-10-30-android5" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2015/03/21/2015-10-30-android5/" class="article-date">
-  <time datetime="2015-03-21T08:26:34.000Z" itemprop="datePublished">2015-03-21</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Android/">Android</a>►<a class="article-category-link" href="/categories/Android/常用代码块/">常用代码块</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/03/21/2015-10-30-android5/">px,dip(dp),sp,dpi,分辨率详解</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>#欢迎来到风的博客</p>
-<p>###px,dip(dp),sp,dpi,分辨率详解<br>1.px (pixels)像素: 是像素，就是屏幕上实际的像素点单位。<br> dip或dp (device independent pixels)设备独立像素， 与设备屏幕有关。<br> sp (scaled pixels : best for text size)：类似dp， 主要处理字体的大小。<br>dpi(dot per inch):屏幕像素密度，每英寸多少像素</p>
-<p>density：density表示每英寸有多少个显示点(逻辑值)，它的单位是dpi</p>
-<p>2.dpi是屏幕像素密度。就是1英寸上像素点的个数。对于屏幕来说，dpi越大，屏幕的精细度越高，屏幕看起来就越清楚。比如iphone4的视网膜级的屏幕肯定比iphone 3gs的屏幕像素密度高的多。</p>
-<p>3.sp由于是放大像素，主要是用于字体显示，由此根据google的建议，TextView的字体大小最好用sp做单位</p>
-<p>4.dp是与密度无关，sp除了与密度无关外，还与scale无关。如果屏幕密度为160，这时dp和sp和px是一样的。1dp=1sp=1px，但如果使用px作单位，如果屏幕大小不变（假设还是3.2寸），而屏幕密度变成了320。那么原来TextView的宽度设成160px，在密度为320的3.2寸屏幕里看要比在密度为160的3.2寸屏幕上看短了一半。但如果设置成160dp或160sp的话。系统会自动将width属性值设置成320px的。也就是160 * 320 / 160。其中320 / 160可称为密度比例因子。也就是说，如果使用dp和sp，系统会根据屏幕密度的变化自动进行转换。 </p>
-<p>5.dip值 =（dpi值/160）* pixel值</p>
-<p>6.像素密度和分辨率是两个不同的概念，分辨率是总的像素点，像素密度是单位长度的像素点</p>
-<p>HVGA屏density=160；QVGA屏density=120；WVGA屏density=240；WQVGA屏density=120</p>
-<p>VGA：Video Graphics Array，即：显示绘图矩阵，相当于640×480<br>HVGA：Half-size VGA；即：VGA的一半，分辨率为480×320；</p>
-<p>QVGA：Quarter VGA；即：VGA的四分之一，分辨率为320×240；</p>
-<p>WVGA：Wide Video Graphics Array；即：扩大的VGA，分辨率为800×480像素；</p>
-<p>WQVGA：Wide Quarter VGA；即：扩大的QVGA，分辨率比QVGA高，比VGA低，一般是：400×240，480×272</p>
-<hr>
-<p>px   ：是屏幕的像素点<br>in    ：英寸<br>mm ：毫米<br>pt    ：磅，1/72 英寸<br>dp   ：一个基于density的抽象单位，如果一个160dpi的屏幕，1dp=1px<br>dip  ：等同于dp<br>sp   ：同dp相似，但还会根据用户的字体大小偏好来缩放。<br>建议使用sp作为文本的单位，其它用dip<br>针对dip和px 的关系，做以下概述：<br>QVGA屏density=120；          QVGA（240<em>320）<br>HVGA屏density=160；          HVGA（320</em>480）<br>WVGA屏density=240；         WVGA（480<em>800）<br>WQVGA屏density=120          WQVGA（240</em>400）<br>density值表示每英寸有多少个显示点，与分辨率是两个概念。<br>不同density下屏幕分辨率信息，以480dip<em>800dip的 WVGA(density=240)为例<br>density=120时<br>屏幕实际分辨率为240px</em>400px （两个点对应一个分辨率）<br>状态栏和标题栏高各19px或者25dip<br>横屏是屏幕宽度400px 或者800dip,工作区域高度211px或者480dip<br>竖屏时屏幕宽度240px或者480dip,工作区域高度381px或者775dip</p>
-<p>density=160时<br>屏幕实际分辨率为320px*533px （3个点对应两个分辨率）<br>状态栏和标题栏高个25px或者25dip<br>横屏是屏幕宽度533px 或者800dip,工作区域高度295px或者480dip<br>竖屏时屏幕宽度320px或者480dip,工作区域高度508px或者775dip</p>
-<p>density=240时<br>屏幕实际分辨率为480px*800px （一个点对于一个分辨率）<br>状态栏和标题栏高个38px或者25dip<br>横屏是屏幕宽度800px 或者800dip,工作区域高度442px或者480dip<br>竖屏时屏幕宽度480px或者480dip,工作区域高度762px或者775dip</p>
-<p>apk的资源包中<br>当屏幕density=240时，使用hdpi 标签的资源<br>当屏幕density=160时，使用mdpi标签的资源<br>当屏幕density=120时，使用ldpi标签的资源。<br>不加任何标签的资源是各种分辨率情况下共用的。<br>布局时尽量使用单位dip，少使用px</p>
-<p>dp与px换算公式：</p>
-<p>$$  pixs =dips <em> (densityDpi/160)$$<br>$$  dips=(pixs</em>160)/densityDpi$$</p>
-<p>dp这个单位可能对web开发的人比较陌生,因为一般都是使用px(像素)<br>但是,现在在开始android应用和游戏后,基本上都转换成用dp作用为单位了,因为可以支持多种分辨率的手机.</p>
-<p>以下是这两个单位的概念:<br>px (pixels)像素: 一个像素通常被视为图像的最小的完整采样，这个用的比较多,特别是web开发,页面基本都是使用像素作为单位的.<br>dip或dp (device independent pixels)设备独立像素 ― 这个和设备硬件有关，一般我们为了支持手机上多种分辨率,如WVGA、HVGA和QVGA,都会使用dip作为长度的单位<br>在Android开发我们一般都可以不需要使用px的,但是某一些控件的属性没有直接支持dip,像下面的代码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">android.view.ViewGroup.LayoutParams.height</div><div class="line">android.view.ViewGroup.LayoutParams.width</div></pre></td></tr></table></figure></p>
-<p>上面这两个属性的单位为像素,但是为了兼容多种分辨率的手机,我们需要最好使用dip,时候我们可以调用以下的代码进行转换.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">int heightPx= DisplayUtil.dip2px(this, 33);</div><div class="line">mTabHost.getTabWidget().getChildAt(i).getLayoutParams().height = heightPx;</div></pre></td></tr></table></figure></p>
-<p>以上代码可以在我另一篇文章看得到.该功能是设置Tab的高度,单位是像素.以上的单位转换是为了支持多分辨率手机的.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">public static int dip2px(Context context, float dpValue) &#123;</div><div class="line">	final float scale = context.getResources().getDisplayMetrics().density;</div><div class="line">	return (int) (dpValue * scale + 0.5f);</div><div class="line">&#125;</div><div class="line"> </div><div class="line">public static int px2dip(Context context, float pxValue) &#123;</div><div class="line">	final float scale = context.getResources().getDisplayMetrics().density;</div><div class="line">	return (int) (pxValue / scale + 0.5f);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://ysrfeng.github.io/2015/03/21/2015-10-30-android5/" data-id="cjc4at961000bp0s6waohgbxe" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
     <article id="post-2015-10-30-android4" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2015/03/15/2015-10-30-android4/" class="article-date">
@@ -164,7 +100,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://ysrfeng.github.io/2015/03/15/2015-10-30-android4/" data-id="cjc4at95j0004p0s6qigb0bm5" class="article-share-link">Share</a>
+      <a data-url="http://ysrfeng.github.io/2015/03/15/2015-10-30-android4/" data-id="cjc4avpxv0005pus6kroahj5d" class="article-share-link">Share</a>
       
       
     </footer>
@@ -202,7 +138,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://ysrfeng.github.io/2014/08/30/2015-10-30-android10/" data-id="cjc4at95b0003p0s6i34ou83h" class="article-share-link">Share</a>
+      <a data-url="http://ysrfeng.github.io/2014/08/30/2015-10-30-android10/" data-id="cjc4avpy10008pus6abakkjal" class="article-share-link">Share</a>
       
       
     </footer>
@@ -252,7 +188,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://ysrfeng.github.io/2014/07/30/2015-10-30-android3/" data-id="cjc4at95p0005p0s6i4gxuvrf" class="article-share-link">Share</a>
+      <a data-url="http://ysrfeng.github.io/2014/07/30/2015-10-30-android3/" data-id="cjc4avpxp0004pus6no89ceau" class="article-share-link">Share</a>
       
       
     </footer>
@@ -306,7 +242,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://ysrfeng.github.io/2014/07/29/2015-10-29-android2/" data-id="cjc4at9510001p0s621kc7dka" class="article-share-link">Share</a>
+      <a data-url="http://ysrfeng.github.io/2014/07/29/2015-10-29-android2/" data-id="cjc4avpxc0001pus6ceuitgik" class="article-share-link">Share</a>
       
       
     </footer>
@@ -356,7 +292,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://ysrfeng.github.io/2014/06/15/2015-10-29-android1/" data-id="cjc4at94u0000p0s6lwf7ec29" class="article-share-link">Share</a>
+      <a data-url="http://ysrfeng.github.io/2014/06/15/2015-10-29-android1/" data-id="cjc4avpxj0002pus63bglmfxy" class="article-share-link">Share</a>
       
       
     </footer>
@@ -379,7 +315,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">分类</h3>
     <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Android/">Android</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Android/HttpClient/">HttpClient</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Android/Kotlin/">Kotlin</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Android/Kotlin/集合/">集合</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Android/Kotlin/集合/数组/">数组</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Android/setOnTouchListener/">setOnTouchListener</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Android/zxing/">zxing</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Android/zxing/二维码/">二维码</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Android/常用代码块/">常用代码块</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Centos7/">Centos7</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/风/">风</a></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Android/">Android</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Android/HttpClient/">HttpClient</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Android/Kotlin/">Kotlin</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Android/Kotlin/集合/">集合</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Android/Kotlin/集合/数组/">数组</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Android/setOnTouchListener/">setOnTouchListener</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Android/zxing/">zxing</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Android/zxing/二维码/">二维码</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Android/常用代码块/">常用代码块</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Centos7/">Centos7</a></li></ul>
     </div>
   </div>
 
@@ -394,7 +330,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">归档</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">一月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">十二月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">六月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">八月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/">七月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">六月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/05/">五月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">三月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/08/">八月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/07/">七月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/06/">六月 2014</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">一月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">六月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">八月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/">七月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">六月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/05/">五月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">三月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/08/">八月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/07/">七月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/06/">六月 2014</a></li></ul>
     </div>
   </div>
 
@@ -411,10 +347,6 @@
           </li>
         
           <li>
-            <a href="/2017/12/30/2017-12-30-屏蔽锋/">陪伴是最长情的告白</a>
-          </li>
-        
-          <li>
             <a href="/2017/06/19/2017-06-14-android14/">Kotlin集合使用</a>
           </li>
         
@@ -424,6 +356,10 @@
         
           <li>
             <a href="/2015/07/15/2015-11-04-android13/">实现扫描二维码和生成带logo的二维码</a>
+          </li>
+        
+          <li>
+            <a href="/2015/06/23/2015-10-31-android12/">Android中Socket通信</a>
           </li>
         
       </ul>
